@@ -19,6 +19,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
+import javax.swing.JRadioButton;
 
 public class CriminalDatabase extends JFrame {
 
@@ -44,6 +45,14 @@ public class CriminalDatabase extends JFrame {
 		"13. Criminal with most number of crimes without getting arrested",
 		"14. Average age of victims for a particular <CRIME_TYPE>"
 	};
+	private JTextField NameTextField;
+	private JTextField CityNameTextField;
+	private JTextField StartTimeTextField;
+	private JTextField AgeTextField;
+	private JTextField CrimeTypeTextField;
+	private JTextField UnderAgeTextField;
+	private JTextField EndTImeTextField;
+	private JTextField NumCriminalTextField;
 	
 	/**
 	 * Launch the application.
@@ -147,19 +156,11 @@ public class CriminalDatabase extends JFrame {
 		InvPanel1_1.setBackground(Color.DARK_GRAY);
 		QueryListCBPanel.add(InvPanel1_1);
 		
-		JComboBox QueryListComboBox = new JComboBox(QueryList);
-		QueryListComboBox.setSelectedIndex(0);
-		QueryListComboBox.setPreferredSize(new Dimension(700, 50));
-		QueryListComboBox.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.LIGHT_GRAY));
-		QueryListComboBox.setForeground(Color.WHITE);
-		QueryListComboBox.setBackground(Color.DARK_GRAY);
-		QueryListComboBox.setFont(new Font("Cantarell", Font.BOLD, 20));
-		QueryListCBPanel.add(QueryListComboBox);
-		
 		JPanel QuerySelectionOutputPanel = new JPanel();
 		QuerySelectionOutputPanel.setBackground(Color.DARK_GRAY);
 		QueryDropDownPanel.add(QuerySelectionOutputPanel);
-		QuerySelectionOutputPanel.setLayout(new GridLayout(3, 1, 0, 0));
+		QuerySelectionOutputPanel.setLayout(new GridLayout(4, 1, 0, 2));
+		QuerySelectionOutputPanel.setVisible(false);
 		
 		JPanel ErrorQueryNumberPanel = new JPanel();
 		ErrorQueryNumberPanel.setBackground(Color.DARK_GRAY);
@@ -201,6 +202,10 @@ public class CriminalDatabase extends JFrame {
 		OpenErrorLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
 		OpenErrorPanel.add(OpenErrorLabel);
 		
+		JPanel InvPanel1_2 = new JPanel();
+		InvPanel1_2.setBackground(Color.DARK_GRAY);
+		QuerySelectionOutputPanel.add(InvPanel1_2);
+		
 		JPanel FormEntry1Panel = new JPanel();
 		FormEntry1Panel.setBackground(Color.DARK_GRAY);
 		QuerySelectionOutputPanel.add(FormEntry1Panel);
@@ -215,20 +220,311 @@ public class CriminalDatabase extends JFrame {
 		QueryPanel.add(SubmitPanel);
 		SubmitPanel.setForeground(Color.WHITE);
 		SubmitPanel.setBackground(Color.DARK_GRAY);
-		SubmitPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		SubmitPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 30));
+		
+		JPanel NamePanel = new JPanel();
+		NamePanel.setBackground(Color.DARK_GRAY);
+		FormEntry1Panel.add(NamePanel, "NamePanel");
+		NamePanel.setLayout(new BoxLayout(NamePanel, BoxLayout.X_AXIS));
+		
+		JLabel NameLabel = new JLabel("Enter name: ");
+		NameLabel.setForeground(Color.WHITE);
+		NameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		NameLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
+		NamePanel.add(NameLabel);
+		
+		NameTextField = new JTextField();
+		NameTextField.setMinimumSize(new Dimension(700, 100));
+		NameTextField.setBackground(Color.DARK_GRAY);
+		NameTextField.setForeground(Color.WHITE);
+		NamePanel.add(NameTextField);
+		NameTextField.setColumns(10);
+		
+		JPanel CityNamePanel = new JPanel();
+		CityNamePanel.setBackground(Color.DARK_GRAY);
+		FormEntry1Panel.add(CityNamePanel, "CityNamePanel");
+		CityNamePanel.setLayout(new BoxLayout(CityNamePanel, BoxLayout.X_AXIS));
+		
+		JLabel CityNameLabel = new JLabel("Enter city name: ");
+		CityNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		CityNameLabel.setForeground(Color.WHITE);
+		CityNameLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
+		CityNamePanel.add(CityNameLabel);
+		
+		CityNameTextField = new JTextField();
+		CityNameTextField.setMinimumSize(new Dimension(700, 100));
+		CityNameTextField.setForeground(Color.WHITE);
+		CityNameTextField.setColumns(10);
+		CityNameTextField.setBackground(Color.DARK_GRAY);
+		CityNamePanel.add(CityNameTextField);
+		
+		JPanel StartTimePanel = new JPanel();
+		StartTimePanel.setBackground(Color.DARK_GRAY);
+		FormEntry1Panel.add(StartTimePanel, "StartTimePanel");
+		StartTimePanel.setLayout(new BoxLayout(StartTimePanel, BoxLayout.X_AXIS));
+		
+		JLabel StartTimeLabel = new JLabel("Enter start time : ");
+		StartTimeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		StartTimeLabel.setForeground(Color.WHITE);
+		StartTimeLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
+		StartTimePanel.add(StartTimeLabel);
+		
+		StartTimeTextField = new JTextField();
+		StartTimeTextField.setMinimumSize(new Dimension(700, 100));
+		StartTimeTextField.setForeground(Color.WHITE);
+		StartTimeTextField.setColumns(10);
+		StartTimeTextField.setBackground(Color.DARK_GRAY);
+		StartTimePanel.add(StartTimeTextField);
+		
+		JPanel MoreLessPanel = new JPanel();
+		MoreLessPanel.setBackground(Color.DARK_GRAY);
+		FormEntry1Panel.add(MoreLessPanel, "MoreLessPanel");
+		MoreLessPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel MoreLessLabel = new JLabel("Select More/Less : ");
+		MoreLessLabel.setForeground(Color.WHITE);
+		MoreLessLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
+		MoreLessPanel.add(MoreLessLabel);
+		
+		JRadioButton MoreRadioButton = new JRadioButton("MORE");
+		MoreRadioButton.setBackground(Color.DARK_GRAY);
+		MoreRadioButton.setForeground(Color.WHITE);
+		MoreRadioButton.setFont(new Font("Cantarell", Font.BOLD, 20));
+		MoreLessPanel.add(MoreRadioButton);
+		
+		JRadioButton LessRadioButton = new JRadioButton("LESS");
+		LessRadioButton.setForeground(Color.WHITE);
+		LessRadioButton.setFont(new Font("Cantarell", Font.BOLD, 20));
+		LessRadioButton.setBackground(Color.DARK_GRAY);
+		MoreLessPanel.add(LessRadioButton);
+		
+		JPanel AgePanel = new JPanel();
+		AgePanel.setBackground(Color.DARK_GRAY);
+		FormEntry1Panel.add(AgePanel, "AgePanel");
+		AgePanel.setLayout(new BoxLayout(AgePanel, BoxLayout.X_AXIS));
+		
+		JLabel AgeLabel = new JLabel("Enter age : ");
+		AgePanel.add(AgeLabel);
+		AgeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		AgeLabel.setForeground(Color.WHITE);
+		AgeLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
+		
+		AgeTextField = new JTextField();
+		AgeTextField.setMinimumSize(new Dimension(700, 100));
+		AgeTextField.setForeground(Color.WHITE);
+		AgeTextField.setColumns(10);
+		AgeTextField.setBackground(Color.DARK_GRAY);
+		AgePanel.add(AgeTextField);
+		
+		JPanel CrimeTypePanel = new JPanel();
+		CrimeTypePanel.setBackground(Color.DARK_GRAY);
+		FormEntry1Panel.add(CrimeTypePanel, "CrimeTypePanel");
+		CrimeTypePanel.setLayout(new BoxLayout(CrimeTypePanel, BoxLayout.X_AXIS));
+		
+		JLabel CrimTypeLabel = new JLabel("Enter crime type : ");
+		CrimTypeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		CrimTypeLabel.setForeground(Color.WHITE);
+		CrimTypeLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
+		CrimeTypePanel.add(CrimTypeLabel);
+		
+		CrimeTypeTextField = new JTextField();
+		CrimeTypeTextField.setMinimumSize(new Dimension(700, 100));
+		CrimeTypeTextField.setForeground(Color.WHITE);
+		CrimeTypeTextField.setColumns(10);
+		CrimeTypeTextField.setBackground(Color.DARK_GRAY);
+		CrimeTypePanel.add(CrimeTypeTextField);
+		
+		JPanel UnderAgePanel = new JPanel();
+		UnderAgePanel.setBackground(Color.DARK_GRAY);
+		FormEntry2Panel.add(UnderAgePanel, "UnderAgePanel");
+		UnderAgePanel.setLayout(new BoxLayout(UnderAgePanel, BoxLayout.X_AXIS));
+		
+		JLabel UnderAgeLabel = new JLabel("Enter age upper bound :");
+		UnderAgeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		UnderAgeLabel.setForeground(Color.WHITE);
+		UnderAgeLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
+		UnderAgePanel.add(UnderAgeLabel);
+		
+		UnderAgeTextField = new JTextField();
+		UnderAgeTextField.setMinimumSize(new Dimension(700, 100));
+		UnderAgeTextField.setForeground(Color.WHITE);
+		UnderAgeTextField.setColumns(10);
+		UnderAgeTextField.setBackground(Color.DARK_GRAY);
+		UnderAgePanel.add(UnderAgeTextField);
+		
+		JPanel EndTimePanel = new JPanel();
+		EndTimePanel.setBackground(Color.DARK_GRAY);
+		FormEntry2Panel.add(EndTimePanel, "EndTimePanel");
+		EndTimePanel.setLayout(new BoxLayout(EndTimePanel, BoxLayout.X_AXIS));
+		
+		JLabel EndTimeLabel = new JLabel("Enter end time : ");
+		EndTimeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		EndTimeLabel.setForeground(Color.WHITE);
+		EndTimeLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
+		EndTimePanel.add(EndTimeLabel);
+		
+		EndTImeTextField = new JTextField();
+		EndTImeTextField.setMinimumSize(new Dimension(700, 100));
+		EndTImeTextField.setForeground(Color.WHITE);
+		EndTImeTextField.setColumns(10);
+		EndTImeTextField.setBackground(Color.DARK_GRAY);
+		EndTimePanel.add(EndTImeTextField);
+		
+		JPanel NumCriminalPanel = new JPanel();
+		NumCriminalPanel.setBackground(Color.DARK_GRAY);
+		FormEntry2Panel.add(NumCriminalPanel, "NumCriminalPanel");
+		NumCriminalPanel.setLayout(new BoxLayout(NumCriminalPanel, BoxLayout.X_AXIS));
+		
+		JLabel NumCriminalLabel = new JLabel("Enter number of criminals (UB) :");
+		NumCriminalLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		NumCriminalLabel.setForeground(Color.WHITE);
+		NumCriminalLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
+		NumCriminalPanel.add(NumCriminalLabel);
+		
+		NumCriminalTextField = new JTextField();
+		NumCriminalTextField.setMinimumSize(new Dimension(700, 100));
+		NumCriminalTextField.setForeground(Color.WHITE);
+		NumCriminalTextField.setColumns(10);
+		NumCriminalTextField.setBackground(Color.DARK_GRAY);
+		NumCriminalPanel.add(NumCriminalTextField);
+		
+		JPanel NoOptionPanel = new JPanel();
+		NoOptionPanel.setBackground(Color.DARK_GRAY);
+		FormEntry1Panel.add(NoOptionPanel, "NoOptionPanel");
+		
+		JPanel NoOptionPanel2 = new JPanel();
+		NoOptionPanel2.setBackground(Color.DARK_GRAY);
+		FormEntry2Panel.add(NoOptionPanel2, "NoOptionPanel2");
+		
+		CardLayout errorQueryNumberBoxLayout = (CardLayout)ErrorQueryNumberPanel.getLayout();
+		CardLayout formEntry1BoxLayout = (CardLayout)FormEntry1Panel.getLayout();
+		CardLayout formEntry2BoxLayout = (CardLayout)FormEntry2Panel.getLayout();
+		
+		JComboBox QueryListComboBox = new JComboBox(QueryList);
+		QueryListComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int selectedIndex = QueryListComboBox.getSelectedIndex();
+				/*CardLayout errorQueryNumberBoxLayout = (CardLayout)ErrorQueryNumberPanel.getLayout();
+				CardLayout formEntry1BoxLayout = (CardLayout)FormEntry1Panel.getLayout();
+				CardLayout formEntry2BoxLayout = (CardLayout)FormEntry2Panel.getLayout();*/
+				
+				QuerySelectionOutputPanel.setVisible(true);
+				errorQueryNumberBoxLayout.show(ErrorQueryNumberPanel, "QueryNumberPanel");
+				
+				switch(selectedIndex){
+				case 0: // Do nothing
+						QueryNumberLabel.setText("Query Number: <NONE>");
+						formEntry1BoxLayout.show(FormEntry1Panel, "NoOptionPanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
+						break;
+						
+				case 1: /**Query 1 */
+						QueryNumberLabel.setText("Query Number: 1");
+						formEntry1BoxLayout.show(FormEntry1Panel, "NamePanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "UnderAgePanel");
+						break;
+						
+				case 2: /**Query 2 */
+						QueryNumberLabel.setText("Query Number: 2");
+						formEntry1BoxLayout.show(FormEntry1Panel, "CityNamePanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
+						break;
+						
+				case 3: /**Query 3 */
+						QueryNumberLabel.setText("Query Number: 3");
+						formEntry1BoxLayout.show(FormEntry1Panel, "StartTimePanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "EndTimePanel");
+						break;
+						
+				case 4: /**Query 4 */
+						QueryNumberLabel.setText("Query Number: 4");
+						formEntry1BoxLayout.show(FormEntry1Panel, "NoOptionPanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
+						break;
+						
+				case 5: /**Query 5 */
+						QueryNumberLabel.setText("Query Number: 5");
+						formEntry1BoxLayout.show(FormEntry1Panel, "CityNamePanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
+						break;
+						
+				case 6: /**Query 6 */
+						QueryNumberLabel.setText("Query Number: 6");
+						formEntry1BoxLayout.show(FormEntry1Panel, "MoreLessPanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "NumCriminalPanel");
+						break;
+						
+				case 7: /**Query 7 */
+						QueryNumberLabel.setText("Query Number: 7");
+						formEntry1BoxLayout.show(FormEntry1Panel, "AgePanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
+						break;
+						
+				case 8: /**Query 8 */
+						QueryNumberLabel.setText("Query Number: 8");
+						formEntry1BoxLayout.show(FormEntry1Panel, "NoOptionPanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
+						break;
+						
+				case 9: /**Query 9 */
+						QueryNumberLabel.setText("Query Number: 9");
+						formEntry1BoxLayout.show(FormEntry1Panel, "NoOptionPanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
+						break;
+						
+				case 10: /**Query 10 */
+						QueryNumberLabel.setText("Query Number: 10");
+						formEntry1BoxLayout.show(FormEntry1Panel, "CrimeTypePanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
+						break;
+						
+				case 11: /**Query 11 */
+						QueryNumberLabel.setText("Query Number:11");
+						formEntry1BoxLayout.show(FormEntry1Panel, "NoOptionPanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
+						break;
+						
+				case 12: /**Query 12 */
+						QueryNumberLabel.setText("Query Number: 12");
+						formEntry1BoxLayout.show(FormEntry1Panel, "NoOptionPanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
+						break;
+						
+				case 13: /**Query 13 */
+						QueryNumberLabel.setText("Query Number: 13");
+						formEntry1BoxLayout.show(FormEntry1Panel, "NoOptionPanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
+						break;
+						
+				case 14: /**Query 14 */
+						QueryNumberLabel.setText("Query Number: 14");
+						formEntry1BoxLayout.show(FormEntry1Panel, "CrimeTypePanel");
+						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
+						break;
+				}
+			}
+		});
+		QueryListComboBox.setSelectedIndex(0);
+		QueryListComboBox.setPreferredSize(new Dimension(700, 50));
+		QueryListComboBox.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.LIGHT_GRAY));
+		QueryListComboBox.setForeground(Color.WHITE);
+		QueryListComboBox.setBackground(Color.DARK_GRAY);
+		QueryListComboBox.setFont(new Font("Cantarell", Font.BOLD, 20));
+		QueryListCBPanel.add(QueryListComboBox);
 		
 		JButton SubmitButton = new JButton("SUBMIT");
 		SubmitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int selectedIndex = QueryListComboBox.getSelectedIndex();
-				CardLayout errorQueryNumberBoxLayout = (CardLayout)ErrorQueryNumberPanel.getLayout();
+				/*CardLayout errorQueryNumberBoxLayout = (CardLayout)ErrorQueryNumberPanel.getLayout();*/
 				
 				switch(selectedIndex){
 				case 0: // Pop-up box -- ask USER to select some query
-						errorQueryNumberBoxLayout.show(ErrorPanel, "ErrorPanel");
+						/*errorQueryNumberBoxLayout.show(ErrorPanel, "ErrorPanel");*/
 						break;
 						
 				case 1: /**Query 1 */
+						
 						break;
 						
 				case 2: /**Query 2 */
