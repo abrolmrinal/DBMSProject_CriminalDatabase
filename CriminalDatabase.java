@@ -1,30 +1,29 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Dimension;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
+
 import javax.swing.border.MatteBorder;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
-import javax.swing.BoxLayout;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
 import java.awt.FlowLayout;
-import javax.swing.JRadioButton;
 import java.awt.Component;
+import javax.swing.*;
 
 public class CriminalDatabase extends JFrame {
 
 	private JPanel contentPane;
+	private JTable jTable;
 
 	/**
 	 * List of all available Queries
@@ -516,10 +515,13 @@ public class CriminalDatabase extends JFrame {
 		QueryListComboBox.setFont(new Font("Cantarell", Font.BOLD, 20));
 		QueryListCBPanel.add(QueryListComboBox);
 		
+		
+		
 		JButton SubmitButton = new JButton("SUBMIT");
 		SubmitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int selectedIndex = QueryListComboBox.getSelectedIndex();
+				String in1,in2,query;
 				/*CardLayout errorQueryNumberBoxLayout = (CardLayout)ErrorQueryNumberPanel.getLayout();*/
 				
 				switch(selectedIndex){
@@ -528,22 +530,195 @@ public class CriminalDatabase extends JFrame {
 						break;
 						
 				case 1: /**Query 1 */
-						
+						 in1=NameTextField.getText();
+			             in2=UnderAgeTextField.getText();
+			             if(!in1.equals("") && !in2.equals(""))
+			             {
+			                query=new String("select * from criminal where Criminal_Name=\""+in1+"\" and Age<\""+in2+"\"");
+			                System.out.println("Query="+query);
+			                ArrayList<Criminal> data=new ArrayList<Criminal>();
+			                Criminal temp;
+			                try
+			                {   Class.forName("com.mysql.jdbc.Driver");  
+			                    Connection con=DriverManager.getConnection(  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+			                    //here sonoo is database name, root is username and password  
+			                    Statement stmt=con.createStatement();  
+			                    ResultSet rs=stmt.executeQuery(query);  
+			                    while(rs.next())
+			                    {
+			                        temp=new Criminal(rs.getInt(1),rs.getString(2),rs.getFloat(3),rs.getInt(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+			                        data.add(temp);
+			                    }
+			                    con.close();  
+			                }
+			                catch(Exception exe)
+			                {
+			                        System.out.println(exe);
+			                }
+			               jTable=new JTable(new myTable(data,data.size()));
+			             }
 						break;
 						
 				case 2: /**Query 2 */
+					 in1=NameTextField.getText();
+		             if(!in1.equals(""))
+		             {
+		                query=new String("select CrimeID,Crime_Time,Crime_Date,Type_of_Crime,Crime_House_Number,Crime_Street_Name,Crime_City_Name from criminal natural join r1 natural join crime where Crime_City_Name=\""+in1+"\"");
+		                System.out.println("Query="+query);
+		                ArrayList<Crime> data=new ArrayList<Crime>();
+		                Crime temp;
+		                try
+		                {   Class.forName("com.mysql.jdbc.Driver");  
+		                    Connection con=DriverManager.getConnection(  
+		                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+		                    //here sonoo is database name, root is username and password  
+		                    Statement stmt=con.createStatement();  
+		                    ResultSet rs=stmt.executeQuery(query);  
+		                    while(rs.next())
+		                    {
+		                        temp=new Crime(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)); 
+		                        data.add(temp);
+		                    }
+		                    con.close();  
+		                }
+		                catch(Exception exe)
+		                {
+		                        System.out.println(exe);
+		                }
+		               jTable=new JTable(new myTableCrime(data,data.size()));
+		             }
 						break;
 						
 				case 3: /**Query 3 */
+							 in1=StartTimeTextField.getText();
+							 in2=EndTImeTextField.getText();
+				             if(!in1.equals("") && !in2.equals(""))
+				             {
+				                query=new String("select * from crime where Crime_Time > \""+in1+"\" and Crime_Time < \""+in2+"\"");
+				                System.out.println("Query="+query);
+				                ArrayList<Crime> data=new ArrayList<Crime>();
+				                Crime temp;
+				                try
+				                {   Class.forName("com.mysql.jdbc.Driver");  
+				                    Connection con=DriverManager.getConnection(  
+				                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+				                    //here sonoo is database name, root is username and password  
+				                    Statement stmt=con.createStatement();  
+				                    ResultSet rs=stmt.executeQuery(query);  
+				                    while(rs.next())
+				                    {
+				                        temp=new Crime(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)); 
+				                        data.add(temp);
+				                    }
+				                    con.close();  
+				                }
+				                catch(Exception exe)
+				                {
+				                        System.out.println(exe);
+				                }
+				               jTable=new JTable(new myTableCrime(data,data.size()));
+				             }
 						break;
 						
 				case 4: /**Query 4 */
+							query=new String("select CriminalID,Criminal_Name,Height,Weight,Age,Criminal_House_Number,Criminal_Street_Name,Criminal_City_Name from criminal natural join r3 natural join arrested_criminals where Action_Taken=\"Death Penalty\"");
+			                System.out.println("Query="+query);
+			                ArrayList<Criminal> data=new ArrayList<Criminal>();
+			                Criminal temp;
+			                try
+			                {   Class.forName("com.mysql.jdbc.Driver");  
+			                    Connection con=DriverManager.getConnection(  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+			                    //here sonoo is database name, root is username and password  
+			                    Statement stmt=con.createStatement();  
+			                    ResultSet rs=stmt.executeQuery(query);  
+			                    while(rs.next())
+			                    {
+			                        temp=new Criminal(rs.getInt(1),rs.getString(2),rs.getFloat(3),rs.getInt(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+			                        data.add(temp);
+			                    }
+			                    con.close();  
+			                }
+			                catch(Exception exe)
+			                {
+			                        System.out.println(exe);
+			                }
+			               jTable=new JTable(new myTable(data,data.size()));
 						break;
 						
 				case 5: /**Query 5 */
+							 in1=CityNameTextField.getText();
+				             if(!in1.equals("") )
+				             {
+				                query=new String("select CriminalID,Criminal_Name,Height,Weight,Age,Criminal_House_Number,Criminal_Street_Name,Criminal_City_Name from criminal natural join r3 natural join arrested_criminals where Arrest_City_Name=\""+in1+"\"");
+				                System.out.println("Query="+query);
+				                ArrayList<Criminal> dataq5=new ArrayList<Criminal>();
+				                Criminal tempq5;
+				                try
+				                {   Class.forName("com.mysql.jdbc.Driver");  
+				                    Connection con=DriverManager.getConnection(  
+				                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+				                    //here sonoo is database name, root is username and password  
+				                    Statement stmt=con.createStatement();  
+				                    ResultSet rs=stmt.executeQuery(query);  
+				                    while(rs.next())
+				                    {
+				                        tempq5=new Criminal(rs.getInt(1),rs.getString(2),rs.getFloat(3),rs.getInt(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+				                        dataq5.add(tempq5);
+				                    }
+				                    con.close();  
+				                }
+				                catch(Exception exe)
+				                {
+				                        System.out.println(exe);
+				                }
+				               jTable=new JTable(new myTable(dataq5,dataq5.size()));
+				             }
 						break;
 						
 				case 6: /**Query 6 */
+							 int m=0;
+							 in1=MoreRadioButton.getText();
+							 in2=NumCriminalTextField.getText();
+							 if(in1.equals(""))
+							 {
+								 in1=LessRadioButton.getText();
+								 m=1;
+							 }
+				             if(!in1.equals("") && !in2.equals(""))
+				             {
+				            	if(m==0)
+				            	{
+				            		query=new String("select * from crime where Crime_Time > \""+in1+"\" and Crime_Time < \""+in2+"\""); //TODO correct the query for this
+				            	}
+				            	else
+				            	{
+				            		query=new String("select * from crime where Crime_Time > \""+in1+"\" and Crime_Time < \""+in2+"\"");
+				            	}
+				                System.out.println("Query="+query);
+				                ArrayList<Jail> dataq6=new ArrayList<Jail>();
+				                Jail tempq6;
+				                try
+				                {   Class.forName("com.mysql.jdbc.Driver");  
+				                    Connection con=DriverManager.getConnection(  
+				                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+				                    //here sonoo is database name, root is username and password  
+				                    Statement stmt=con.createStatement();  
+				                    ResultSet rs=stmt.executeQuery(query);  
+				                    while(rs.next())
+				                    {
+				                        tempq6=new Jail(rs.getInt(1),rs.getString(2),rs.getInt(3)); 
+				                        dataq6.add(tempq6);
+				                    }
+				                    con.close();  
+				                }
+				                catch(Exception exe)
+				                {
+				                        System.out.println(exe);
+				                }
+				               jTable=new JTable(new myTableJail(dataq6,dataq6.size()));
+				             }
 						break;
 						
 				case 7: /**Query 7 */
