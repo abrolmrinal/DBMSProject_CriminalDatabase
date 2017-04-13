@@ -20,6 +20,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import javax.swing.JRadioButton;
+import java.awt.Component;
 
 public class CriminalDatabase extends JFrame {
 
@@ -76,7 +77,7 @@ public class CriminalDatabase extends JFrame {
 	public CriminalDatabase() {
 		setBackground(Color.DARK_GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 997, 567);
+		setBounds(100, 100, 1065, 670);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -128,6 +129,7 @@ public class CriminalDatabase extends JFrame {
 		QueryDropDownPanel.setLayout(new GridLayout(2, 1, 0, 0));
 		
 		JPanel ContainerPanel1 = new JPanel();
+		ContainerPanel1.setAlignmentX(Component.LEFT_ALIGNMENT);
 		ContainerPanel1.setBackground(Color.DARK_GRAY);
 		QueryDropDownPanel.add(ContainerPanel1);
 		
@@ -395,7 +397,8 @@ public class CriminalDatabase extends JFrame {
 		JPanel NoOptionPanel2 = new JPanel();
 		NoOptionPanel2.setBackground(Color.DARK_GRAY);
 		FormEntry2Panel.add(NoOptionPanel2, "NoOptionPanel2");
-		
+		//ContainerPanel1.add(FormEntry1Panel);
+		//ContainerPanel1.add(FormEntry2Panel);
 		CardLayout errorQueryNumberBoxLayout = (CardLayout)ErrorQueryNumberPanel.getLayout();
 		CardLayout formEntry1BoxLayout = (CardLayout)FormEntry1Panel.getLayout();
 		CardLayout formEntry2BoxLayout = (CardLayout)FormEntry2Panel.getLayout();
@@ -414,6 +417,7 @@ public class CriminalDatabase extends JFrame {
 				switch(selectedIndex){
 				case 0: // Do nothing
 						QueryNumberLabel.setText("Query Number: <NONE>");
+						//ErrorPanel.show();
 						formEntry1BoxLayout.show(FormEntry1Panel, "NoOptionPanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
 						break;
@@ -574,6 +578,8 @@ public class CriminalDatabase extends JFrame {
 		SubmitButton.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.LIGHT_GRAY));
 		SubmitButton.setBackground(Color.DARK_GRAY);
 		SubmitPanel.add(SubmitButton);
+		//SubmitPanel.show();
+		SubmitButton.setVisible(true);
 		
 		JButton StartButton = new JButton("START");
 		StartButton.addActionListener(new ActionListener() {
