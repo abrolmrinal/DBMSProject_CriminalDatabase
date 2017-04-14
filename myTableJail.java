@@ -15,32 +15,27 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.TableModel;
 import javax.swing.table.AbstractTableModel;
-public class myTable extends AbstractTableModel{
-	private Object[][] data = new String[1000][8];
+public class myTableJail extends AbstractTableModel{
+	private Object[][] data = new String[1000][3];
 	private String count;
 	private int counting;
 	private int xcounter;
-	public myTable(ArrayList<Criminal> dataset,int counterInp){
+	public myTableJail(ArrayList<Jail> dataset,int counterInp){
 		xcounter = counterInp;
 		counting = 0;
 		setCount(xcounter);
 		if(dataset != null){
-		for(Criminal k:dataset){
-			data[counting][0] = k.CriminalID;
-			data[counting][1] = k.Criminal_Name;
-			data[counting][2] = k.Height;
-			data[counting][3] = k.Weight;
-			data[counting][4] = k.Age;
-			data[counting][5] = k.House_Number;
-			data[counting][6] = k.Street;
-			data[counting][7] = k.City;
+		for(Jail k:dataset){
+			data[counting][0] = k.JailID;
+			data[counting][1] = k.Jail_Name;
+			data[counting][2] = k.Count;
 			counting ++;
 			xcounter++;
 			setCount(xcounter);
 		}
 	}
 	}
-	private String[] columnNames = { "Criminal ID", "Name", "Height","Weight", "Age","House NUmber","Street Name","City" };
+	private String[] columnNames = { "Jail ID", "Jail Name","Count" };
 	public int getColumnCount() {
 		return columnNames.length;
 	}
