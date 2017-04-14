@@ -605,14 +605,14 @@ public class CriminalDatabase extends JFrame {
 			             in2=UnderAgeTextField.getText();
 			             if(!in1.equals("") && !in2.equals(""))
 			             {
-			                query=new String("select * from criminal where Criminal_Name=\""+in1+"\" and Age<\""+in2+"\"");
+			                query=new String("select * from criminal where Criminal_Name=\""+in1+"\" and Age<"+in2+"");
 			                System.out.println("Query="+query);
 			                ArrayList<Criminal> data=new ArrayList<Criminal>();
 			                Criminal temp;
 			                try
 			                {   Class.forName("com.mysql.jdbc.Driver");  
 			                    Connection con=DriverManager.getConnection(  
-			                    "jdbc:mysql://localhost:3306/project_dbms_crime","root","M");  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
 			                    //here sonoo is database name, root is username and password  
 			                    Statement stmt=con.createStatement();  
 			                    ResultSet rs=stmt.executeQuery(query);  
@@ -648,13 +648,13 @@ public class CriminalDatabase extends JFrame {
 		                try
 		                {   Class.forName("com.mysql.jdbc.Driver");  
 		                    Connection con=DriverManager.getConnection(  
-		                    "jdbc:mysql://localhost:3306/project_dbms_crime","root","M");  
+		                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
 		                    //here sonoo is database name, root is username and password  
 		                    Statement stmt=con.createStatement();  
 		                    ResultSet rs=stmt.executeQuery(query);  
 		                    while(rs.next())
 		                    {
-		                        temp=new Crime(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)); 
+		                        temp=new Crime(rs.getInt(1),new String(rs.getTime(2)+""),new String(rs.getDate(3)+""),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)); 
 		                        data.add(temp);
 		                    }
 		                    con.close();  
@@ -675,20 +675,20 @@ public class CriminalDatabase extends JFrame {
 							 in2=EndTImeTextField.getText();
 				             if(!in1.equals("") && !in2.equals(""))
 				             {
-				                query=new String("select * from crime where Crime_Time > \""+in1+"\" and Crime_Time < \""+in2+"\"");
+				                query=new String("select * from crime where Crime_Time > cast(\""+in1.substring(0,2)+":"+in1.substring(2,4)+"\" as time) and Crime_Time < cast(\""+in2.substring(0, 2)+":"+in2.substring(2,4)+"\" as time)");
 				                System.out.println("Query="+query);
 				                ArrayList<Crime> data=new ArrayList<Crime>();
 				                Crime temp;
 				                try
 				                {   Class.forName("com.mysql.jdbc.Driver");  
 				                    Connection con=DriverManager.getConnection(  
-				                    "jdbc:mysql://localhost:3306/project_dbms_crime","root","M");  
+				                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
 				                    //here sonoo is database name, root is username and password  
 				                    Statement stmt=con.createStatement();  
 				                    ResultSet rs=stmt.executeQuery(query);  
 				                    while(rs.next())
 				                    {
-				                        temp=new Crime(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)); 
+				                        temp=new Crime(rs.getInt(1),new String(rs.getTime(2)+""),new String(rs.getDate(3)+""),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)); 
 				                        data.add(temp);
 				                    }
 				                    con.close();  
@@ -713,7 +713,7 @@ public class CriminalDatabase extends JFrame {
 			                try
 			                {   Class.forName("com.mysql.jdbc.Driver");  
 			                    Connection con=DriverManager.getConnection(  
-			                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
 			                    //here sonoo is database name, root is username and password  
 			                    Statement stmt=con.createStatement();  
 			                    ResultSet rs=stmt.executeQuery(query);  
@@ -745,7 +745,7 @@ public class CriminalDatabase extends JFrame {
 				                try
 				                {   Class.forName("com.mysql.jdbc.Driver");  
 				                    Connection con=DriverManager.getConnection(  
-				                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+				                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
 				                    //here sonoo is database name, root is username and password  
 				                    Statement stmt=con.createStatement();  
 				                    ResultSet rs=stmt.executeQuery(query);  
@@ -781,11 +781,11 @@ public class CriminalDatabase extends JFrame {
 				             {
 				            	if(m==0)
 				            	{
-				            		query=new String("select JailID,Jail_Name,a_count from (select JailID,Jail_Name,count(*) as a_count from arrested_criminals natural join r5 natural join jail group by(Jail_Name) ) as jail_total where jail_total.a_count >\""+in1+"\""); 
+				            		query=new String("select JailID,Jail_Name,a_count from (select JailID,Jail_Name,count(*) as a_count from arrested_criminals natural join r5 natural join jail group by(Jail_Name) ) as jail_total where jail_total.a_count >"+in1+""); 
 				            	}
 				            	else
 				            	{
-				            		query=new String("select JailID,Jail_Name,a_count from (select JailID,Jail_Name,count(*) as a_count from arrested_criminals natural join r5 natural join jail group by(Jail_Name) ) as jail_total where jail_total.a_count <\""+in1+"\"");
+				            		query=new String("select JailID,Jail_Name,a_count from (select JailID,Jail_Name,count(*) as a_count from arrested_criminals natural join r5 natural join jail group by(Jail_Name) ) as jail_total where jail_total.a_count <"+in1+"");
 				            	}
 				                System.out.println("Query="+query);
 				                ArrayList<Jail> dataq6=new ArrayList<Jail>();
@@ -793,7 +793,7 @@ public class CriminalDatabase extends JFrame {
 				                try
 				                {   Class.forName("com.mysql.jdbc.Driver");  
 				                    Connection con=DriverManager.getConnection(  
-				                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+				                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
 				                    //here sonoo is database name, root is username and password  
 				                    Statement stmt=con.createStatement();  
 				                    ResultSet rs=stmt.executeQuery(query);  
@@ -819,14 +819,14 @@ public class CriminalDatabase extends JFrame {
 							 in1=AgeTextField.getText();
 				             if(!in1.equals("") )
 				             {
-				                query=new String("select VictimID,Victim_Name,Victim_Age from victim where Sex=\"Female\" and Victim_Age <\""+in1+"\"");
+				                query=new String("select VictimID,Victim_Name,Victim_Age from victim where Sex=\"Female\" and Victim_Age <"+in1+"");
 				                System.out.println("Query="+query);
 				                ArrayList<Victim> dataq7=new ArrayList<Victim>();
 				                Victim tempq7;
 				                try
 				                {   Class.forName("com.mysql.jdbc.Driver");  
 				                    Connection con=DriverManager.getConnection(  
-				                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+				                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
 				                    //here sonoo is database name, root is username and password  
 				                    Statement stmt=con.createStatement();  
 				                    ResultSet rs=stmt.executeQuery(query);  
@@ -856,7 +856,7 @@ public class CriminalDatabase extends JFrame {
 			                try
 			                {   Class.forName("com.mysql.jdbc.Driver");  
 			                    Connection con=DriverManager.getConnection(  
-			                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
 			                    //here sonoo is database name, root is username and password  
 			                    Statement stmt=con.createStatement();  
 			                    ResultSet rs=stmt.executeQuery(query);  
@@ -878,14 +878,14 @@ public class CriminalDatabase extends JFrame {
 						break;
 						
 				case 9: /**Query 9 */
-							query=new String("select Arrest_City_Name ,count(*) as \"Number\" from arrested_criminals group by (Arrest_City_Name) order by (Number) desc");
+							query=new String("select Arrest_City_Name ,count(*) as \"Number\" from arrested_criminals group by(Arrest_City_Name) order by(Number) desc");
 			                System.out.println("Query="+query);
 			                ArrayList<CityCount> dataq9=new ArrayList<CityCount>();
 			                CityCount tempq9;
 			                try
 			                {   Class.forName("com.mysql.jdbc.Driver");  
 			                    Connection con=DriverManager.getConnection(  
-			                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
 			                    //here sonoo is database name, root is username and password  
 			                    Statement stmt=con.createStatement();  
 			                    ResultSet rs=stmt.executeQuery(query);  
@@ -917,7 +917,7 @@ public class CriminalDatabase extends JFrame {
 				                try
 				                {   Class.forName("com.mysql.jdbc.Driver");  
 				                    Connection con=DriverManager.getConnection(  
-				                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+				                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
 				                    //here sonoo is database name, root is username and password  
 				                    Statement stmt=con.createStatement();  
 				                    ResultSet rs=stmt.executeQuery(query);  
@@ -947,7 +947,7 @@ public class CriminalDatabase extends JFrame {
 			                try
 			                {   Class.forName("com.mysql.jdbc.Driver");  
 			                    Connection con=DriverManager.getConnection(  
-			                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
 			                    //here sonoo is database name, root is username and password  
 			                    Statement stmt=con.createStatement();  
 			                    ResultSet rs=stmt.executeQuery(query);  
@@ -969,14 +969,14 @@ public class CriminalDatabase extends JFrame {
 						break;
 						
 				case 12: /**Query 12 */
-							query=new String("select CriminalID ,count(Crime_City_Name) from criminal natural join r1 natural join crime group by(CriminalID)");
+							query=new String("select Criminal_Name ,count(Crime_City_Name) as \"Number\" from criminal natural join r1 natural join crime group by(CriminalID) order by(Number) desc");
 			                System.out.println("Query="+query);
 			                ArrayList<CityCount> dataq12=new ArrayList<CityCount>();
 			                CityCount tempq12;
 			                try
 			                {   Class.forName("com.mysql.jdbc.Driver");  
 			                    Connection con=DriverManager.getConnection(  
-			                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
 			                    //here sonoo is database name, root is username and password  
 			                    Statement stmt=con.createStatement();  
 			                    ResultSet rs=stmt.executeQuery(query);  
@@ -1005,7 +1005,7 @@ public class CriminalDatabase extends JFrame {
 			                try
 			                {   Class.forName("com.mysql.jdbc.Driver");  
 			                    Connection con=DriverManager.getConnection(  
-			                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
 			                    //here sonoo is database name, root is username and password  
 			                    Statement stmt=con.createStatement();  
 			                    ResultSet rs=stmt.executeQuery(query);  
@@ -1037,7 +1037,7 @@ public class CriminalDatabase extends JFrame {
 				                try
 				                {   Class.forName("com.mysql.jdbc.Driver");  
 				                    Connection con=DriverManager.getConnection(  
-				                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+				                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
 				                    //here sonoo is database name, root is username and password  
 				                    Statement stmt=con.createStatement();  
 				                    ResultSet rs=stmt.executeQuery(query);  
