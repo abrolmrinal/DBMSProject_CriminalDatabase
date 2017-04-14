@@ -16,7 +16,7 @@ import javax.swing.event.*;
 import javax.swing.table.TableModel;
 import javax.swing.table.AbstractTableModel;
 public class myTableCityCount extends AbstractTableModel{
-	private Object[][] data = new String[20][2];
+	private Object[][] data = new String[1000][2];
 	private String count;
 	private int counting;
 	private int xcounter;

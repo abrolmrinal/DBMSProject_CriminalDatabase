@@ -22,7 +22,11 @@ import javax.swing.*;
 public class CriminalDatabase extends JFrame {
 
 	private JPanel contentPane;
+<<<<<<< Updated upstream
 	
+=======
+	private JTable OutputTable;
+>>>>>>> Stashed changes
 
 	/**
 	 * List of all available Queries
@@ -606,14 +610,19 @@ public class CriminalDatabase extends JFrame {
 			                {
 			                        System.out.println(exe);
 			                }
+<<<<<<< Updated upstream
 			                OutputTable=new JTable(new myTable(data,data.size()));;
 			                TablePanel.add(OutputTable);
 			                TablePanel.repaint();	
 			                cardLayout.show(contentPane, "OutputPanel");
+=======
+			               OutputTable=new JTable(new myTable(data,data.size()));
+>>>>>>> Stashed changes
 			             }
 						break;
 						
 				case 2: /**Query 2 */
+<<<<<<< Updated upstream
 					 in1=NameTextField.getText();
 		             if(!in1.equals(""))
 		             {
@@ -641,6 +650,35 @@ public class CriminalDatabase extends JFrame {
 		                }
 		                OutputTable=new JTable(new myTableCrime(data,data.size()));
 		             }
+=======
+							 in1=NameTextField.getText();
+				             if(!in1.equals(""))
+				             {
+				                query=new String("select CrimeID,Crime_Time,Crime_Date,Type_of_Crime,Crime_House_Number,Crime_Street_Name,Crime_City_Name from criminal natural join r1 natural join crime where Crime_City_Name=\""+in1+"\"");
+				                System.out.println("Query="+query);
+				                ArrayList<Crime> data=new ArrayList<Crime>();
+				                Crime temp;
+				                try
+				                {   Class.forName("com.mysql.jdbc.Driver");  
+				                    Connection con=DriverManager.getConnection(  
+				                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+				                    //here sonoo is database name, root is username and password  
+				                    Statement stmt=con.createStatement();  
+				                    ResultSet rs=stmt.executeQuery(query);  
+				                    while(rs.next())
+				                    {
+				                        temp=new Crime(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)); 
+				                        data.add(temp);
+				                    }
+				                    con.close();  
+				                }
+				                catch(Exception exe)
+				                {
+				                        System.out.println(exe);
+				                }
+				               OutputTable=new JTable(new myTableCrime(data,data.size()));
+				             }
+>>>>>>> Stashed changes
 						break;
 						
 				case 3: /**Query 3 */
@@ -670,7 +708,11 @@ public class CriminalDatabase extends JFrame {
 				                {
 				                        System.out.println(exe);
 				                }
+<<<<<<< Updated upstream
 				                OutputTable=new JTable(new myTableCrime(data,data.size()));
+=======
+				               OutputTable=new JTable(new myTableCrime(data,data.size()));
+>>>>>>> Stashed changes
 				             }
 						break;
 						
@@ -697,7 +739,11 @@ public class CriminalDatabase extends JFrame {
 			                {
 			                        System.out.println(exe);
 			                }
+<<<<<<< Updated upstream
 			                OutputTable=new JTable(new myTable(data,data.size()));
+=======
+			               OutputTable=new JTable(new myTable(data,data.size()));
+>>>>>>> Stashed changes
 						break;
 						
 				case 5: /**Query 5 */
@@ -726,7 +772,11 @@ public class CriminalDatabase extends JFrame {
 				                {
 				                        System.out.println(exe);
 				                }
+<<<<<<< Updated upstream
 				                OutputTable=new JTable(new myTable(dataq5,dataq5.size()));
+=======
+				               OutputTable=new JTable(new myTable(dataq5,dataq5.size()));
+>>>>>>> Stashed changes
 				             }
 						break;
 						
@@ -743,11 +793,11 @@ public class CriminalDatabase extends JFrame {
 				             {
 				            	if(m==0)
 				            	{
-				            		query=new String("select * from crime where Crime_Time > \""+in1+"\" and Crime_Time < \""+in2+"\""); //TODO correct the query for this
+				            		query=new String("select JailID,Jail_Name,a_count from (select JailID,Jail_Name,count(*) as a_count from arrested_criminals natural join r5 natural join jail group by(Jail_Name) ) as jail_total where jail_total.a_count >\""+in1+"\""); 
 				            	}
 				            	else
 				            	{
-				            		query=new String("select * from crime where Crime_Time > \""+in1+"\" and Crime_Time < \""+in2+"\"");
+				            		query=new String("select JailID,Jail_Name,a_count from (select JailID,Jail_Name,count(*) as a_count from arrested_criminals natural join r5 natural join jail group by(Jail_Name) ) as jail_total where jail_total.a_count <\""+in1+"\"");
 				            	}
 				                System.out.println("Query="+query);
 				                ArrayList<Jail> dataq6=new ArrayList<Jail>();
@@ -770,32 +820,232 @@ public class CriminalDatabase extends JFrame {
 				                {
 				                        System.out.println(exe);
 				                }
+<<<<<<< Updated upstream
 				                OutputTable=new JTable(new myTableJail(dataq6,dataq6.size()));
+=======
+				               OutputTable=new JTable(new myTableJail(dataq6,dataq6.size()));
+>>>>>>> Stashed changes
 				             }
 						break;
 						
 				case 7: /**Query 7 */
+							 in1=AgeTextField.getText();
+				             if(!in1.equals("") )
+				             {
+				                query=new String("select VictimID,Victim_Name,Victim_Age from crime natural join r2 natural join victim where Sex=\"Female\" and Victim_Age <\""+in1+"\"");
+				                System.out.println("Query="+query);
+				                ArrayList<Victim> dataq7=new ArrayList<Victim>();
+				                Victim tempq7;
+				                try
+				                {   Class.forName("com.mysql.jdbc.Driver");  
+				                    Connection con=DriverManager.getConnection(  
+				                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+				                    //here sonoo is database name, root is username and password  
+				                    Statement stmt=con.createStatement();  
+				                    ResultSet rs=stmt.executeQuery(query);  
+				                    while(rs.next())
+				                    {
+				                        tempq7=new Victim(rs.getInt(1),rs.getString(2),rs.getInt(3)); 
+				                        dataq7.add(tempq7);
+				                    }
+				                    con.close();  
+				                }
+				                catch(Exception exe)
+				                {
+				                        System.out.println(exe);
+				                }
+				               OutputTable=new JTable(new myTableVictim(dataq7,dataq7.size()));
+				             }
 						break;
 						
 				case 8: /**Query 8 */
+							query=new String("select CriminalID,Criminal_Name,Height,Weight,Age,Criminal_House_Number,Criminal_Street_Name,Criminal_City_Name from criminal where CriminalID not in ( select CriminalID from criminal natural join r3)");
+			                System.out.println("Query="+query);
+			                ArrayList<Criminal> dataq8=new ArrayList<Criminal>();
+			                Criminal tempq8;
+			                try
+			                {   Class.forName("com.mysql.jdbc.Driver");  
+			                    Connection con=DriverManager.getConnection(  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+			                    //here sonoo is database name, root is username and password  
+			                    Statement stmt=con.createStatement();  
+			                    ResultSet rs=stmt.executeQuery(query);  
+			                    while(rs.next())
+			                    {
+			                        tempq8=new Criminal(rs.getInt(1),rs.getString(2),rs.getFloat(3),rs.getInt(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+			                        dataq8.add(tempq8);
+			                    }
+			                    con.close();  
+			                }
+			                catch(Exception exe)
+			                {
+			                        System.out.println(exe);
+			                }
+			               OutputTable=new JTable(new myTable(dataq8,dataq8.size()));
 						break;
 						
 				case 9: /**Query 9 */
+							query=new String("select Arrest_City_Name ,count(*)  from arrested_criminals group by(Arrest_City_Name)");
+			                System.out.println("Query="+query);
+			                ArrayList<CityCount> dataq9=new ArrayList<CityCount>();
+			                CityCount tempq9;
+			                try
+			                {   Class.forName("com.mysql.jdbc.Driver");  
+			                    Connection con=DriverManager.getConnection(  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+			                    //here sonoo is database name, root is username and password  
+			                    Statement stmt=con.createStatement();  
+			                    ResultSet rs=stmt.executeQuery(query);  
+			                    while(rs.next())
+			                    {
+			                        tempq9=new CityCount(rs.getString(1),rs.getInt(2)); 
+			                        dataq9.add(tempq9);
+			                    }
+			                    con.close();  
+			                }
+			                catch(Exception exe)
+			                {
+			                        System.out.println(exe);
+			                }
+			               OutputTable=new JTable(new myTableCityCount(dataq9,dataq9.size()));
 						break;
 						
 				case 10: /**Query 10 */
+							 in1=CrimeTypeTextField.getText(); 
+				             if(!in1.equals(""))
+				             {
+				                query=new String("select Type_of_Crime,avg(Age) from criminal natural join r1 natural join crime where Type_of_Crime=\""+in1+"\" group by(Type_of_Crime)");
+				                System.out.println("Query="+query);
+				                ArrayList<CrimeAge> dataq10=new ArrayList<CrimeAge>();
+				                CrimeAge tempq10;
+				                try
+				                {   Class.forName("com.mysql.jdbc.Driver");  
+				                    Connection con=DriverManager.getConnection(  
+				                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+				                    //here sonoo is database name, root is username and password  
+				                    Statement stmt=con.createStatement();  
+				                    ResultSet rs=stmt.executeQuery(query);  
+				                    while(rs.next())
+				                    {
+				                        tempq10=new CrimeAge(rs.getString(1),rs.getFloat(2)); 
+				                        dataq10.add(tempq10);
+				                    }
+				                    con.close();  
+				                }
+				                catch(Exception exe)
+				                {
+				                        System.out.println(exe);
+				                }
+				               OutputTable=new JTable(new myTableCrimeAge(dataq10,dataq10.size()));
+				             }
 						break;
 						
 				case 11: /**Query 11 */
+							query=new String("select Criminal_City_Name, count(*) from criminal where CriminalID not in (select CriminalID from criminal natural join r3) group by(Criminal_City_Name)");
+			                System.out.println("Query="+query);
+			                ArrayList<CityCount> dataq11=new ArrayList<CityCount>();
+			                CityCount tempq11;
+			                try
+			                {   Class.forName("com.mysql.jdbc.Driver");  
+			                    Connection con=DriverManager.getConnection(  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+			                    //here sonoo is database name, root is username and password  
+			                    Statement stmt=con.createStatement();  
+			                    ResultSet rs=stmt.executeQuery(query);  
+			                    while(rs.next())
+			                    {
+			                        tempq11=new CityCount(rs.getString(1),rs.getInt(2)); 
+			                        dataq11.add(tempq11);
+			                    }
+			                    con.close();  
+			                }
+			                catch(Exception exe)
+			                {
+			                        System.out.println(exe);
+			                }
+			               OutputTable=new JTable(new myTableCityCount(dataq11,dataq11.size()));
 						break;
 						
 				case 12: /**Query 12 */
+							query=new String("select CriminalID ,count(Crime_City_Name) from criminal natural join r1 natural join crime group by(CriminalID)");
+			                System.out.println("Query="+query);
+			                ArrayList<CityCount> dataq12=new ArrayList<CityCount>();
+			                CityCount tempq12;
+			                try
+			                {   Class.forName("com.mysql.jdbc.Driver");  
+			                    Connection con=DriverManager.getConnection(  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+			                    //here sonoo is database name, root is username and password  
+			                    Statement stmt=con.createStatement();  
+			                    ResultSet rs=stmt.executeQuery(query);  
+			                    while(rs.next())
+			                    {
+			                        tempq12=new CityCount(rs.getString(1),rs.getInt(2)); 
+			                        dataq12.add(tempq12);
+			                    }
+			                    con.close();  
+			                }
+			                catch(Exception exe)
+			                {
+			                        System.out.println(exe);
+			                }
+			               OutputTable=new JTable(new myTableCityCount(dataq12,dataq12.size()));
 						break;
 						
 				case 13: /**Query 13 */
+							query=new String("select Criminal_Name,count(CrimeID) from criminal natural join r1 where CrimeID not in (select CrimeID from criminal natural join r3) group by(CriminalID) order by (count(CrimeID)) desc");
+			                System.out.println("Query="+query);
+			                ArrayList<CityCount> dataq13=new ArrayList<CityCount>();
+			                CityCount tempq13;
+			                try
+			                {   Class.forName("com.mysql.jdbc.Driver");  
+			                    Connection con=DriverManager.getConnection(  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+			                    //here sonoo is database name, root is username and password  
+			                    Statement stmt=con.createStatement();  
+			                    ResultSet rs=stmt.executeQuery(query);  
+			                    while(rs.next())
+			                    {
+			                        tempq13=new CityCount(rs.getString(1),rs.getInt(2)); 
+			                        dataq13.add(tempq13);
+			                    }
+			                    con.close();  
+			                }
+			                catch(Exception exe)
+			                {
+			                        System.out.println(exe);
+			                }
+			               OutputTable=new JTable(new myTableCityCount(dataq13,dataq13.size()));
 						break;
 						
 				case 14: /**Query 14 */
+							 in1=CrimeTypeTextField.getText();
+				             if(!in1.equals(""))
+				             {
+				                query=new String("select Type_of_Crime,avg(Victim_Age) from crime natural join r2 natural join victim where Type_of_Crime=\""+in1+"\" group by(Type_of_Crime)");
+				                System.out.println("Query="+query);
+				                ArrayList<CrimeAge> dataq14=new ArrayList<CrimeAge>();
+				                CrimeAge tempq14;
+				                try
+				                {   Class.forName("com.mysql.jdbc.Driver");  
+				                    Connection con=DriverManager.getConnection(  
+				                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+				                    //here sonoo is database name, root is username and password  
+				                    Statement stmt=con.createStatement();  
+				                    ResultSet rs=stmt.executeQuery(query);  
+				                    while(rs.next())
+				                    {
+				                        tempq14=new CrimeAge(rs.getString(1),rs.getFloat(2)); 
+				                        dataq14.add(tempq14);
+				                    }
+				                    con.close();  
+				                }
+				                catch(Exception exe)
+				                {
+				                        System.out.println(exe);
+				                }
+				               OutputTable=new JTable(new myTableCrimeAge(dataq14,dataq14.size()));
+				             }
 						break;
 				}
 			}

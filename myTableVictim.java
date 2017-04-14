@@ -16,7 +16,7 @@ import javax.swing.event.*;
 import javax.swing.table.TableModel;
 import javax.swing.table.AbstractTableModel;
 public class myTableVictim extends AbstractTableModel{
-	private Object[][] data = new String[20][4];
+	private Object[][] data = new String[1000][3];
 	private String count;
 	private int counting;
 	private int xcounter;
@@ -29,7 +29,6 @@ public class myTableVictim extends AbstractTableModel{
 			data[counting][0] = k.VictimID;
 			data[counting][1] = k.Name;
 			data[counting][2] = k.Age;
-			data[counting][3] = k.Sex;
 			counting ++;
 			xcounter++;
 			setCount(xcounter);
