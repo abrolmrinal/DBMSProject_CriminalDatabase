@@ -419,6 +419,11 @@ public class CriminalDatabase extends JFrame {
 		OutputTable.setForeground(Color.WHITE);
 		OutputTable.setFont(new Font("Cantarell", Font.PLAIN, 20));
 		OutputTable.setBackground(Color.DARK_GRAY);
+		
+		JScrollPane OutputTableScrollPane = new JScrollPane();
+		TablePanel.add(OutputTableScrollPane);
+		OutputTableScrollPane.setViewportView(OutputTable);
+		
 
 		
 		JPanel BackPanel = new JPanel();
@@ -605,9 +610,8 @@ public class CriminalDatabase extends JFrame {
 			                {
 			                        System.out.println(exe);
 			                }
-			                OutputTable=new JTable(new myTable(data,data.size()));;
-			                TablePanel.add(OutputTable);
-			                TablePanel.repaint();	
+			                OutputTable=new JTable(new myTable(data,data.size()));
+			                OutputTableScrollPane.setViewportView(OutputTable);
 			                cardLayout.show(contentPane, "OutputPanel");
 			             }
 						break;
@@ -640,6 +644,7 @@ public class CriminalDatabase extends JFrame {
 		                        System.out.println(exe);
 		                }
 		                OutputTable=new JTable(new myTableCrime(data,data.size()));
+		                OutputTableScrollPane.setViewportView(OutputTable);
 		             }
 						break;
 						
@@ -671,6 +676,8 @@ public class CriminalDatabase extends JFrame {
 				                        System.out.println(exe);
 				                }
 				                OutputTable=new JTable(new myTableCrime(data,data.size()));
+				                OutputTableScrollPane.setViewportView(OutputTable);
+				                cardLayout.show(contentPane, "OutputPanel");
 
 				             }
 						break;
@@ -699,6 +706,8 @@ public class CriminalDatabase extends JFrame {
 			                        System.out.println(exe);
 			                }
 			                OutputTable=new JTable(new myTable(data,data.size()));
+			                OutputTableScrollPane.setViewportView(OutputTable);
+			                cardLayout.show(contentPane, "OutputPanel");
 						break;
 						
 				case 5: /**Query 5 */
@@ -728,6 +737,8 @@ public class CriminalDatabase extends JFrame {
 				                        System.out.println(exe);
 				                }
 				                OutputTable=new JTable(new myTable(dataq5,dataq5.size()));
+				                OutputTableScrollPane.setViewportView(OutputTable);
+				                cardLayout.show(contentPane, "OutputPanel");
 
 				             }
 						break;
@@ -773,6 +784,8 @@ public class CriminalDatabase extends JFrame {
 				                        System.out.println(exe);
 				                }
 				                OutputTable=new JTable(new myTableJail(dataq6,dataq6.size()));
+				                OutputTableScrollPane.setViewportView(OutputTable);
+				                cardLayout.show(contentPane, "OutputPanel");
 				             }
 						break;
 						
@@ -803,6 +816,8 @@ public class CriminalDatabase extends JFrame {
 				                        System.out.println(exe);
 				                }
 				               OutputTable=new JTable(new myTableVictim(dataq7,dataq7.size()));
+				               OutputTableScrollPane.setViewportView(OutputTable);
+				               cardLayout.show(contentPane, "OutputPanel");
 				             }
 						break;
 						
@@ -830,6 +845,8 @@ public class CriminalDatabase extends JFrame {
 			                        System.out.println(exe);
 			                }
 			               OutputTable=new JTable(new myTable(dataq8,dataq8.size()));
+			               OutputTableScrollPane.setViewportView(OutputTable);
+			               cardLayout.show(contentPane, "OutputPanel");
 						break;
 						
 				case 9: /**Query 9 */
@@ -856,6 +873,8 @@ public class CriminalDatabase extends JFrame {
 			                        System.out.println(exe);
 			                }
 			               OutputTable=new JTable(new myTableCityCount(dataq9,dataq9.size()));
+			               OutputTableScrollPane.setViewportView(OutputTable);
+			               cardLayout.show(contentPane, "OutputPanel");
 						break;
 						
 				case 10: /**Query 10 */
@@ -885,6 +904,8 @@ public class CriminalDatabase extends JFrame {
 				                        System.out.println(exe);
 				                }
 				               OutputTable=new JTable(new myTableCrimeAge(dataq10,dataq10.size()));
+				               OutputTableScrollPane.setViewportView(OutputTable);
+				               cardLayout.show(contentPane, "OutputPanel");
 				             }
 						break;
 						
@@ -912,6 +933,8 @@ public class CriminalDatabase extends JFrame {
 			                        System.out.println(exe);
 			                }
 			               OutputTable=new JTable(new myTableCityCount(dataq11,dataq11.size()));
+			               OutputTableScrollPane.setViewportView(OutputTable);
+			               cardLayout.show(contentPane, "OutputPanel");
 						break;
 						
 				case 12: /**Query 12 */
@@ -938,6 +961,8 @@ public class CriminalDatabase extends JFrame {
 			                        System.out.println(exe);
 			                }
 			               OutputTable=new JTable(new myTableCityCount(dataq12,dataq12.size()));
+			               OutputTableScrollPane.setViewportView(OutputTable);
+			               cardLayout.show(contentPane, "OutputPanel");
 						break;
 						
 				case 13: /**Query 13 */
@@ -964,6 +989,8 @@ public class CriminalDatabase extends JFrame {
 			                        System.out.println(exe);
 			                }
 			               OutputTable=new JTable(new myTableCityCount(dataq13,dataq13.size()));
+			               OutputTableScrollPane.setViewportView(OutputTable);
+			               cardLayout.show(contentPane, "OutputPanel");
 						break;
 						
 				case 14: /**Query 14 */
@@ -993,6 +1020,8 @@ public class CriminalDatabase extends JFrame {
 				                        System.out.println(exe);
 				                }
 				               OutputTable=new JTable(new myTableCrimeAge(dataq14,dataq14.size()));
+				               OutputTableScrollPane.setViewportView(OutputTable);
+				               cardLayout.show(contentPane, "OutputPanel");
 				             }
 						break;
 				}
