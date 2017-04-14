@@ -35,7 +35,7 @@ public class myTableVictim extends AbstractTableModel{
 		}
 	}
 	}
-	private String[] columnNames = { "Victim ID", "Name","Age","Sex" };
+	private String[] columnNames = { "Victim ID", "Name","Age" };
 	public int getColumnCount() {
 		return columnNames.length;
 	}
