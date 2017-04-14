@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.Dimension;
 
 import javax.swing.border.MatteBorder;
+import javax.swing.table.JTableHeader;
+
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import java.awt.Component;
 import javax.swing.*;
+import java.awt.Rectangle;
 
 public class CriminalDatabase extends JFrame {
 
@@ -76,7 +79,7 @@ public class CriminalDatabase extends JFrame {
 		
 		setBackground(Color.DARK_GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1065, 670);
+		setBounds(100, 100, 1500, 670);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -409,20 +412,34 @@ public class CriminalDatabase extends JFrame {
 		OutputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JPanel TablePanel = new JPanel();
-		TablePanel.setPreferredSize(new Dimension(1065, 450));
+		TablePanel.setForeground(Color.WHITE);
+		TablePanel.setFont(new Font("Cantarell", Font.PLAIN, 20));
+		TablePanel.setPreferredSize(new Dimension(1500, 450));
 		TablePanel.setBackground(Color.DARK_GRAY);
 		OutputPanel.add(TablePanel);
 		TablePanel.setLayout(new BoxLayout(TablePanel, BoxLayout.X_AXIS));
 		
 		OutputTable = new JTable();
-		TablePanel.add(OutputTable);
+		OutputTable.setPreferredScrollableViewportSize(new Dimension(450, 500));
+		OutputTable.setRowHeight(25);
+		OutputTable.setGridColor(Color.GRAY);
+		OutputTable.setSelectionForeground(Color.DARK_GRAY);
+		OutputTable.setSelectionBackground(Color.WHITE);
 		OutputTable.setForeground(Color.WHITE);
 		OutputTable.setFont(new Font("Cantarell", Font.PLAIN, 20));
 		OutputTable.setBackground(Color.DARK_GRAY);
+		JTableHeader tableHeader = OutputTable.getTableHeader();
+		tableHeader.setBackground(Color.DARK_GRAY);
+		tableHeader.setForeground(Color.WHITE);
+		tableHeader.setFont(new Font("Cantarell", Font.BOLD, 20));
 		
 		JScrollPane OutputTableScrollPane = new JScrollPane();
+		OutputTableScrollPane.setFont(new Font("Cantarell", Font.PLAIN, 20));
+		OutputTableScrollPane.setForeground(Color.WHITE);
+		OutputTableScrollPane.setBackground(Color.DARK_GRAY);
 		TablePanel.add(OutputTableScrollPane);
 		OutputTableScrollPane.setViewportView(OutputTable);
+		
 		
 
 		
@@ -611,6 +628,9 @@ public class CriminalDatabase extends JFrame {
 			                        System.out.println(exe);
 			                }
 			                OutputTable=new JTable(new myTable(data,data.size()));
+			                
+			                changeOutputTableSettings();
+			        		
 			                OutputTableScrollPane.setViewportView(OutputTable);
 			                cardLayout.show(contentPane, "OutputPanel");
 			             }
@@ -628,7 +648,7 @@ public class CriminalDatabase extends JFrame {
 		                try
 		                {   Class.forName("com.mysql.jdbc.Driver");  
 		                    Connection con=DriverManager.getConnection(  
-		                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+		                    "jdbc:mysql://localhost:3306/project_dbms_crime","root","M");  
 		                    //here sonoo is database name, root is username and password  
 		                    Statement stmt=con.createStatement();  
 		                    ResultSet rs=stmt.executeQuery(query);  
@@ -644,7 +664,9 @@ public class CriminalDatabase extends JFrame {
 		                        System.out.println(exe);
 		                }
 		                OutputTable=new JTable(new myTableCrime(data,data.size()));
+		                changeOutputTableSettings();
 		                OutputTableScrollPane.setViewportView(OutputTable);
+		                cardLayout.show(contentPane, "OutputPanel");
 		             }
 						break;
 						
@@ -660,7 +682,7 @@ public class CriminalDatabase extends JFrame {
 				                try
 				                {   Class.forName("com.mysql.jdbc.Driver");  
 				                    Connection con=DriverManager.getConnection(  
-				                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+				                    "jdbc:mysql://localhost:3306/project_dbms_crime","root","M");  
 				                    //here sonoo is database name, root is username and password  
 				                    Statement stmt=con.createStatement();  
 				                    ResultSet rs=stmt.executeQuery(query);  
@@ -676,6 +698,7 @@ public class CriminalDatabase extends JFrame {
 				                        System.out.println(exe);
 				                }
 				                OutputTable=new JTable(new myTableCrime(data,data.size()));
+				                changeOutputTableSettings();
 				                OutputTableScrollPane.setViewportView(OutputTable);
 				                cardLayout.show(contentPane, "OutputPanel");
 
@@ -706,6 +729,7 @@ public class CriminalDatabase extends JFrame {
 			                        System.out.println(exe);
 			                }
 			                OutputTable=new JTable(new myTable(data,data.size()));
+			                changeOutputTableSettings();
 			                OutputTableScrollPane.setViewportView(OutputTable);
 			                cardLayout.show(contentPane, "OutputPanel");
 						break;
@@ -737,6 +761,7 @@ public class CriminalDatabase extends JFrame {
 				                        System.out.println(exe);
 				                }
 				                OutputTable=new JTable(new myTable(dataq5,dataq5.size()));
+				                changeOutputTableSettings();
 				                OutputTableScrollPane.setViewportView(OutputTable);
 				                cardLayout.show(contentPane, "OutputPanel");
 
@@ -784,6 +809,7 @@ public class CriminalDatabase extends JFrame {
 				                        System.out.println(exe);
 				                }
 				                OutputTable=new JTable(new myTableJail(dataq6,dataq6.size()));
+				                changeOutputTableSettings();
 				                OutputTableScrollPane.setViewportView(OutputTable);
 				                cardLayout.show(contentPane, "OutputPanel");
 				             }
@@ -793,7 +819,7 @@ public class CriminalDatabase extends JFrame {
 							 in1=AgeTextField.getText();
 				             if(!in1.equals("") )
 				             {
-				                query=new String("select VictimID,Victim_Name,Victim_Age from crime natural join r2 natural join victim where Sex=\"Female\" and Victim_Age <\""+in1+"\"");
+				                query=new String("select VictimID,Victim_Name,Victim_Age from victim where Sex=\"Female\" and Victim_Age <\""+in1+"\"");
 				                System.out.println("Query="+query);
 				                ArrayList<Victim> dataq7=new ArrayList<Victim>();
 				                Victim tempq7;
@@ -816,6 +842,7 @@ public class CriminalDatabase extends JFrame {
 				                        System.out.println(exe);
 				                }
 				               OutputTable=new JTable(new myTableVictim(dataq7,dataq7.size()));
+				               changeOutputTableSettings();
 				               OutputTableScrollPane.setViewportView(OutputTable);
 				               cardLayout.show(contentPane, "OutputPanel");
 				             }
@@ -845,6 +872,7 @@ public class CriminalDatabase extends JFrame {
 			                        System.out.println(exe);
 			                }
 			               OutputTable=new JTable(new myTable(dataq8,dataq8.size()));
+			               changeOutputTableSettings();
 			               OutputTableScrollPane.setViewportView(OutputTable);
 			               cardLayout.show(contentPane, "OutputPanel");
 						break;
@@ -873,6 +901,7 @@ public class CriminalDatabase extends JFrame {
 			                        System.out.println(exe);
 			                }
 			               OutputTable=new JTable(new myTableCityCount(dataq9,dataq9.size()));
+			               changeOutputTableSettings();
 			               OutputTableScrollPane.setViewportView(OutputTable);
 			               cardLayout.show(contentPane, "OutputPanel");
 						break;
@@ -904,6 +933,7 @@ public class CriminalDatabase extends JFrame {
 				                        System.out.println(exe);
 				                }
 				               OutputTable=new JTable(new myTableCrimeAge(dataq10,dataq10.size()));
+				               changeOutputTableSettings();
 				               OutputTableScrollPane.setViewportView(OutputTable);
 				               cardLayout.show(contentPane, "OutputPanel");
 				             }
@@ -933,6 +963,7 @@ public class CriminalDatabase extends JFrame {
 			                        System.out.println(exe);
 			                }
 			               OutputTable=new JTable(new myTableCityCount(dataq11,dataq11.size()));
+			               changeOutputTableSettings();
 			               OutputTableScrollPane.setViewportView(OutputTable);
 			               cardLayout.show(contentPane, "OutputPanel");
 						break;
@@ -961,6 +992,7 @@ public class CriminalDatabase extends JFrame {
 			                        System.out.println(exe);
 			                }
 			               OutputTable=new JTable(new myTableCityCount(dataq12,dataq12.size()));
+			               changeOutputTableSettings();
 			               OutputTableScrollPane.setViewportView(OutputTable);
 			               cardLayout.show(contentPane, "OutputPanel");
 						break;
@@ -989,6 +1021,7 @@ public class CriminalDatabase extends JFrame {
 			                        System.out.println(exe);
 			                }
 			               OutputTable=new JTable(new myTableCityCount(dataq13,dataq13.size()));
+			               changeOutputTableSettings();
 			               OutputTableScrollPane.setViewportView(OutputTable);
 			               cardLayout.show(contentPane, "OutputPanel");
 						break;
@@ -1020,8 +1053,9 @@ public class CriminalDatabase extends JFrame {
 				                        System.out.println(exe);
 				                }
 				               OutputTable=new JTable(new myTableCrimeAge(dataq14,dataq14.size()));
+				               changeOutputTableSettings();
 				               OutputTableScrollPane.setViewportView(OutputTable);
-				               cardLayout.show(contentPane, "OutputPanel");
+				               cardLayout.show(contentPane, "OutputPanel");	
 				             }
 						break;
 				}
@@ -1050,4 +1084,20 @@ public class CriminalDatabase extends JFrame {
 		StartButtonPanel.add(StartButton);
 	
 	}
+	
+	public void changeOutputTableSettings(){
+		OutputTable.setPreferredScrollableViewportSize(new Dimension(450, 500));
+		OutputTable.setRowHeight(25);
+		OutputTable.setGridColor(Color.GRAY);
+		OutputTable.setSelectionForeground(Color.DARK_GRAY);
+		OutputTable.setSelectionBackground(Color.WHITE);
+		OutputTable.setForeground(Color.WHITE);
+		OutputTable.setFont(new Font("Cantarell", Font.PLAIN, 20));
+		OutputTable.setBackground(Color.DARK_GRAY);
+		JTableHeader tableHeader = OutputTable.getTableHeader();
+		tableHeader.setBackground(Color.DARK_GRAY);
+		tableHeader.setForeground(Color.WHITE);
+		tableHeader.setFont(new Font("Cantarell", Font.BOLD, 20));
+	}
+	
 }
