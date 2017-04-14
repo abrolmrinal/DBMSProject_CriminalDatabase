@@ -52,7 +52,7 @@ public class CriminalDatabase extends JFrame {
 	private JTextField AgeTextField;
 	private JTextField CrimeTypeTextField;
 	private JTextField UnderAgeTextField;
-	private JTextField EndTImeTextField;
+	private JTextField EndTimeTextField;
 	private JTextField NumCriminalTextField;
 	private JTable OutputTable;
 	
@@ -168,15 +168,43 @@ public class CriminalDatabase extends JFrame {
 		QuerySelectionOutputPanel.setLayout(new GridLayout(4, 1, 0, 2));
 		QuerySelectionOutputPanel.setVisible(false);
 		
-		JPanel ErrorQueryNumberPanel = new JPanel();
-		ErrorQueryNumberPanel.setBackground(Color.DARK_GRAY);
-		QuerySelectionOutputPanel.add(ErrorQueryNumberPanel);
-		ErrorQueryNumberPanel.setLayout(new CardLayout(0, 0));
+		JPanel QueryNumberPanel_1 = new JPanel();
+		QueryNumberPanel_1.setBackground(Color.DARK_GRAY);
+		QuerySelectionOutputPanel.add(QueryNumberPanel_1);
+		QueryNumberPanel_1.setLayout(new BoxLayout(QueryNumberPanel_1, BoxLayout.X_AXIS));
+		
+		JPanel QueryNumberPanel = new JPanel();
+		QueryNumberPanel.setBackground(Color.DARK_GRAY);
+		QueryNumberPanel_1.add(QueryNumberPanel);
+		
+		JLabel QueryNumberLabel = new JLabel("Query number : <INDEX>");
+		QueryNumberLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+		QueryNumberLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		QueryNumberLabel.setForeground(Color.WHITE);
+		QueryNumberLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
+		QueryNumberPanel.add(QueryNumberLabel);
+		
+		JPanel InputErrorPanel = new JPanel();
+		InputErrorPanel.setVisible(false);
+		InputErrorPanel.setBackground(Color.DARK_GRAY);
+		QuerySelectionOutputPanel.add(InputErrorPanel);
+		InputErrorPanel.setLayout(new CardLayout(0, 0));
+		
+		JPanel OpenErrorPanel = new JPanel();
+		InputErrorPanel.add(OpenErrorPanel, "OpenErrorPanel");
+		OpenErrorPanel.setBackground(new Color(165, 42, 42));
+		
+		JLabel OpenErrorLabel = new JLabel("<OPEN ERROR>");
+		OpenErrorLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+		OpenErrorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		OpenErrorLabel.setForeground(Color.WHITE);
+		OpenErrorLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
+		OpenErrorPanel.add(OpenErrorLabel);
 		
 		JPanel ErrorPanel = new JPanel();
+		InputErrorPanel.add(ErrorPanel, "ErrorPanel");
 		ErrorPanel.setForeground(Color.WHITE);
 		ErrorPanel.setBackground(new Color(165, 42, 42));
-		ErrorQueryNumberPanel.add(ErrorPanel, "ErrorPanel");
 		ErrorPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel ErrorLabel = new JLabel("Error: You might want to select a query mate");
@@ -186,31 +214,9 @@ public class CriminalDatabase extends JFrame {
 		ErrorLabel.setForeground(Color.WHITE);
 		ErrorPanel.add(ErrorLabel);
 		
-		JPanel QueryNumberPanel = new JPanel();
-		QueryNumberPanel.setBackground(Color.DARK_GRAY);
-		ErrorQueryNumberPanel.add(QueryNumberPanel, "QueryNumberPanel");
-		
-		JLabel QueryNumberLabel = new JLabel("Query number : <INDEX>");
-		QueryNumberLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-		QueryNumberLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		QueryNumberLabel.setForeground(Color.WHITE);
-		QueryNumberLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
-		QueryNumberPanel.add(QueryNumberLabel);
-		
-		JPanel OpenErrorPanel = new JPanel();
-		OpenErrorPanel.setBackground(new Color(165, 42, 42));
-		ErrorQueryNumberPanel.add(OpenErrorPanel, "OpenErrorPanel");
-		
-		JLabel OpenErrorLabel = new JLabel("<OPEN ERROR>");
-		OpenErrorLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-		OpenErrorLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		OpenErrorLabel.setForeground(Color.WHITE);
-		OpenErrorLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
-		OpenErrorPanel.add(OpenErrorLabel);
-		
-		JPanel InvPanel1_2 = new JPanel();
-		InvPanel1_2.setBackground(Color.DARK_GRAY);
-		QuerySelectionOutputPanel.add(InvPanel1_2);
+		JPanel InvPanel = new JPanel();
+		InvPanel.setBackground(Color.DARK_GRAY);
+		InputErrorPanel.add(InvPanel, "InvPanel");
 		
 		JPanel FormEntry1Panel = new JPanel();
 		FormEntry1Panel.setBackground(Color.DARK_GRAY);
@@ -375,13 +381,13 @@ public class CriminalDatabase extends JFrame {
 		EndTimeLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
 		EndTimePanel.add(EndTimeLabel);
 		
-		EndTImeTextField = new JTextField();
-		EndTImeTextField.setFont(new Font("Cantarell", Font.PLAIN, 20));
-		EndTImeTextField.setMinimumSize(new Dimension(700, 100));
-		EndTImeTextField.setForeground(Color.WHITE);
-		EndTImeTextField.setColumns(10);
-		EndTImeTextField.setBackground(Color.DARK_GRAY);
-		EndTimePanel.add(EndTImeTextField);
+		EndTimeTextField = new JTextField();
+		EndTimeTextField.setFont(new Font("Cantarell", Font.PLAIN, 20));
+		EndTimeTextField.setMinimumSize(new Dimension(700, 100));
+		EndTimeTextField.setForeground(Color.WHITE);
+		EndTimeTextField.setColumns(10);
+		EndTimeTextField.setBackground(Color.DARK_GRAY);
+		EndTimePanel.add(EndTimeTextField);
 		
 		JPanel NumCriminalPanel = new JPanel();
 		NumCriminalPanel.setBackground(Color.DARK_GRAY);
@@ -467,11 +473,10 @@ public class CriminalDatabase extends JFrame {
 		JPanel NoOptionPanel2 = new JPanel();
 		NoOptionPanel2.setBackground(Color.DARK_GRAY);
 		FormEntry2Panel.add(NoOptionPanel2, "NoOptionPanel2");
-		//ContainerPanel1.add(FormEntry1Panel);
-		//ContainerPanel1.add(FormEntry2Panel);
-		CardLayout errorQueryNumberBoxLayout = (CardLayout)ErrorQueryNumberPanel.getLayout();
+		
 		CardLayout formEntry1BoxLayout = (CardLayout)FormEntry1Panel.getLayout();
 		CardLayout formEntry2BoxLayout = (CardLayout)FormEntry2Panel.getLayout();
+		CardLayout inputErrorBoxLayout = (CardLayout)InputErrorPanel.getLayout();
 		
 		JComboBox QueryListComboBox = new JComboBox(QueryList);
 		QueryListComboBox.addActionListener(new ActionListener() {
@@ -481,8 +486,17 @@ public class CriminalDatabase extends JFrame {
 				CardLayout formEntry1BoxLayout = (CardLayout)FormEntry1Panel.getLayout();
 				CardLayout formEntry2BoxLayout = (CardLayout)FormEntry2Panel.getLayout();*/
 				
-				QuerySelectionOutputPanel.setVisible(true);
-				errorQueryNumberBoxLayout.show(ErrorQueryNumberPanel, "QueryNumberPanel");
+				QuerySelectionOutputPanel.setVisible(true);	
+				/**/
+				 NameTextField.setText("");
+				 CityNameTextField.setText("");
+				 StartTimeTextField.setText("");
+				 AgeTextField.setText("");
+				 CrimeTypeTextField.setText("");
+				 UnderAgeTextField.setText("");
+				 NumCriminalTextField.setText("");
+				 EndTimeTextField.setText("");
+				 /**/
 				
 				switch(selectedIndex){
 				case 0: // Do nothing
@@ -493,84 +507,98 @@ public class CriminalDatabase extends JFrame {
 						break;
 						
 				case 1: /**Query 1 */
+						inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 						QueryNumberLabel.setText("Query Number: 1");
 						formEntry1BoxLayout.show(FormEntry1Panel, "NamePanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "UnderAgePanel");
 						break;
 						
 				case 2: /**Query 2 */
+						inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 						QueryNumberLabel.setText("Query Number: 2");
 						formEntry1BoxLayout.show(FormEntry1Panel, "CityNamePanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
 						break;
 						
 				case 3: /**Query 3 */
+						inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 						QueryNumberLabel.setText("Query Number: 3");
 						formEntry1BoxLayout.show(FormEntry1Panel, "StartTimePanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "EndTimePanel");
 						break;
 						
 				case 4: /**Query 4 */
+						inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 						QueryNumberLabel.setText("Query Number: 4");
 						formEntry1BoxLayout.show(FormEntry1Panel, "NoOptionPanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
 						break;
 						
 				case 5: /**Query 5 */
+						inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 						QueryNumberLabel.setText("Query Number: 5");
 						formEntry1BoxLayout.show(FormEntry1Panel, "CityNamePanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
 						break;
 						
 				case 6: /**Query 6 */
+						inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 						QueryNumberLabel.setText("Query Number: 6");
 						formEntry1BoxLayout.show(FormEntry1Panel, "MoreLessPanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "NumCriminalPanel");
 						break;
 						
 				case 7: /**Query 7 */
+						inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 						QueryNumberLabel.setText("Query Number: 7");
 						formEntry1BoxLayout.show(FormEntry1Panel, "AgePanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
 						break;
 						
 				case 8: /**Query 8 */
+						inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 						QueryNumberLabel.setText("Query Number: 8");
 						formEntry1BoxLayout.show(FormEntry1Panel, "NoOptionPanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
 						break;
 						
 				case 9: /**Query 9 */
+						inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 						QueryNumberLabel.setText("Query Number: 9");
 						formEntry1BoxLayout.show(FormEntry1Panel, "NoOptionPanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
 						break;
 						
 				case 10: /**Query 10 */
+						inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 						QueryNumberLabel.setText("Query Number: 10");
 						formEntry1BoxLayout.show(FormEntry1Panel, "CrimeTypePanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
 						break;
 						
 				case 11: /**Query 11 */
+						inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 						QueryNumberLabel.setText("Query Number:11");
 						formEntry1BoxLayout.show(FormEntry1Panel, "NoOptionPanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
 						break;
 						
 				case 12: /**Query 12 */
+						inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 						QueryNumberLabel.setText("Query Number: 12");
 						formEntry1BoxLayout.show(FormEntry1Panel, "NoOptionPanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
 						break;
 						
 				case 13: /**Query 13 */
+						inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 						QueryNumberLabel.setText("Query Number: 13");
 						formEntry1BoxLayout.show(FormEntry1Panel, "NoOptionPanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
 						break;
 						
 				case 14: /**Query 14 */
+						inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 						QueryNumberLabel.setText("Query Number: 14");
 						formEntry1BoxLayout.show(FormEntry1Panel, "CrimeTypePanel");
 						formEntry2BoxLayout.show(FormEntry2Panel, "NoOptionPanel2");
@@ -594,17 +622,28 @@ public class CriminalDatabase extends JFrame {
 				int selectedIndex = QueryListComboBox.getSelectedIndex();
 				String in1,in2,query;
 				/*CardLayout errorQueryNumberBoxLayout = (CardLayout)ErrorQueryNumberPanel.getLayout();*/
-				
+				InputErrorPanel.setVisible(true);
 				switch(selectedIndex){
 				case 0: // Pop-up box -- ask USER to select some query
-						/*errorQueryNumberBoxLayout.show(ErrorPanel, "ErrorPanel");*/
+						inputErrorBoxLayout.show(InputErrorPanel, "ErrorPanel");
 						break;
 						
 				case 1: /**Query 1 */
 						 in1=NameTextField.getText();
 			             in2=UnderAgeTextField.getText();
+			             /**/
+						 NameTextField.setText("");
+						 CityNameTextField.setText("");
+						 StartTimeTextField.setText("");
+						 AgeTextField.setText("");
+						 CrimeTypeTextField.setText("");
+						 UnderAgeTextField.setText("");
+						 NumCriminalTextField.setText("");
+						 EndTimeTextField.setText("");
+						 /**/
 			             if(!in1.equals("") && !in2.equals(""))
-			             {
+			             {	
+			            	inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 			                query=new String("select * from criminal where Criminal_Name=\""+in1+"\" and Age<"+in2+"");
 			                System.out.println("Query="+query);
 			                ArrayList<Criminal> data=new ArrayList<Criminal>();
@@ -634,13 +673,28 @@ public class CriminalDatabase extends JFrame {
 			                OutputTableScrollPane.setViewportView(OutputTable);
 			                cardLayout.show(contentPane, "OutputPanel");
 			             }
+			             else{
+			            	 OpenErrorLabel.setText("Empty fields not allowed");
+			            	 inputErrorBoxLayout.show(InputErrorPanel, "OpenErrorPanel");
+			             }
 						break;
 						
 				case 2: /**Query 2 */
 
 					 in1=CityNameTextField.getText();
+					 /**/
+					 NameTextField.setText("");
+					 CityNameTextField.setText("");
+					 StartTimeTextField.setText("");
+					 AgeTextField.setText("");
+					 CrimeTypeTextField.setText("");
+					 UnderAgeTextField.setText("");
+					 NumCriminalTextField.setText("");
+					 EndTimeTextField.setText("");
+					 /**/
 		             if(!in1.equals(""))
 		             {
+		            	 inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 		                query=new String("select CrimeID,Crime_Time,Crime_Date,Type_of_Crime,Crime_House_Number,Crime_Street_Name,Crime_City_Name from criminal natural join r1 natural join crime where Crime_City_Name=\""+in1+"\"");
 		                System.out.println("Query="+query);
 		                ArrayList<Crime> data=new ArrayList<Crime>();
@@ -668,13 +722,28 @@ public class CriminalDatabase extends JFrame {
 		                OutputTableScrollPane.setViewportView(OutputTable);
 		                cardLayout.show(contentPane, "OutputPanel");
 		             }
+		             else{
+		            	 OpenErrorLabel.setText("Empty fields not allowed");
+		            	 inputErrorBoxLayout.show(InputErrorPanel, "OpenErrorPanel");
+		             }
 						break;
 						
 				case 3: /**Query 3 */
 							 in1=StartTimeTextField.getText();
-							 in2=EndTImeTextField.getText();
+							 in2=EndTimeTextField.getText();
+							 /**/
+							 NameTextField.setText("");
+							 CityNameTextField.setText("");
+							 StartTimeTextField.setText("");
+							 AgeTextField.setText("");
+							 CrimeTypeTextField.setText("");
+							 UnderAgeTextField.setText("");
+							 NumCriminalTextField.setText("");
+							 EndTimeTextField.setText("");
+							 /**/
 				             if(!in1.equals("") && !in2.equals(""))
 				             {
+				            	 inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 				                query=new String("select * from crime where Crime_Time > cast(\""+in1.substring(0,2)+":"+in1.substring(2,4)+"\" as time) and Crime_Time < cast(\""+in2.substring(0, 2)+":"+in2.substring(2,4)+"\" as time)");
 				                System.out.println("Query="+query);
 				                ArrayList<Crime> data=new ArrayList<Crime>();
@@ -702,6 +771,10 @@ public class CriminalDatabase extends JFrame {
 				                OutputTableScrollPane.setViewportView(OutputTable);
 				                cardLayout.show(contentPane, "OutputPanel");
 
+				             }
+				             else{
+				            	 OpenErrorLabel.setText("Empty fields not allowed");
+				            	 inputErrorBoxLayout.show(InputErrorPanel, "OpenErrorPanel");
 				             }
 						break;
 						
@@ -732,12 +805,24 @@ public class CriminalDatabase extends JFrame {
 			                changeOutputTableSettings();
 			                OutputTableScrollPane.setViewportView(OutputTable);
 			                cardLayout.show(contentPane, "OutputPanel");
+			                
 						break;
 						
 				case 5: /**Query 5 */
 							 in1=CityNameTextField.getText();
+							 /**/
+							 NameTextField.setText("");
+							 CityNameTextField.setText("");
+							 StartTimeTextField.setText("");
+							 AgeTextField.setText("");
+							 CrimeTypeTextField.setText("");
+							 UnderAgeTextField.setText("");
+							 NumCriminalTextField.setText("");
+							 EndTimeTextField.setText("");
+							 /**/
 				             if(!in1.equals("") )
 				             {
+				            	 inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 				                query=new String("select CriminalID,Criminal_Name,Height,Weight,Age,Criminal_House_Number,Criminal_Street_Name,Criminal_City_Name from criminal natural join r3 natural join arrested_criminals where Arrest_City_Name=\""+in1+"\"");
 				                System.out.println("Query="+query);
 				                ArrayList<Criminal> dataq5=new ArrayList<Criminal>();
@@ -766,12 +851,26 @@ public class CriminalDatabase extends JFrame {
 				                cardLayout.show(contentPane, "OutputPanel");
 
 				             }
+				             else{
+				            	 OpenErrorLabel.setText("Empty fields not allowed");
+				            	 inputErrorBoxLayout.show(InputErrorPanel, "OpenErrorPanel");
+				             }
 						break;
 						
 				case 6: /**Query 6 */
 							 int m=0;
 							 in1=MoreRadioButton.getText();
 							 in2=NumCriminalTextField.getText();
+							 /**/
+							 NameTextField.setText("");
+							 CityNameTextField.setText("");
+							 StartTimeTextField.setText("");
+							 AgeTextField.setText("");
+							 CrimeTypeTextField.setText("");
+							 UnderAgeTextField.setText("");
+							 NumCriminalTextField.setText("");
+							 EndTimeTextField.setText("");
+							 /**/
 							 if(in1.equals(""))
 							 {
 								 in1=LessRadioButton.getText();
@@ -779,6 +878,7 @@ public class CriminalDatabase extends JFrame {
 							 }
 				             if(!in1.equals("") && !in2.equals(""))
 				             {
+				            	 inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 				            	if(m==0)
 				            	{
 				            		query=new String("select JailID,Jail_Name,a_count from (select JailID,Jail_Name,count(*) as a_count from arrested_criminals natural join r5 natural join jail group by(Jail_Name) ) as jail_total where jail_total.a_count >"+in1+""); 
@@ -813,12 +913,27 @@ public class CriminalDatabase extends JFrame {
 				                OutputTableScrollPane.setViewportView(OutputTable);
 				                cardLayout.show(contentPane, "OutputPanel");
 				             }
+				             else{
+				            	 OpenErrorLabel.setText("Empty fields not allowed");
+				            	 inputErrorBoxLayout.show(InputErrorPanel, "OpenErrorPanel");
+				             }
 						break;
 						
 				case 7: /**Query 7 */
 							 in1=AgeTextField.getText();
+							 /**/
+							 NameTextField.setText("");
+							 CityNameTextField.setText("");
+							 StartTimeTextField.setText("");
+							 AgeTextField.setText("");
+							 CrimeTypeTextField.setText("");
+							 UnderAgeTextField.setText("");
+							 NumCriminalTextField.setText("");
+							 EndTimeTextField.setText("");
+							 /**/
 				             if(!in1.equals("") )
 				             {
+				            	 inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 				                query=new String("select VictimID,Victim_Name,Victim_Age from victim where Sex=\"Female\" and Victim_Age <"+in1+"");
 				                System.out.println("Query="+query);
 				                ArrayList<Victim> dataq7=new ArrayList<Victim>();
@@ -845,6 +960,10 @@ public class CriminalDatabase extends JFrame {
 				               changeOutputTableSettings();
 				               OutputTableScrollPane.setViewportView(OutputTable);
 				               cardLayout.show(contentPane, "OutputPanel");
+				             }
+				             else{
+				            	 OpenErrorLabel.setText("Empty fields not allowed");
+				            	 inputErrorBoxLayout.show(InputErrorPanel, "OpenErrorPanel");
 				             }
 						break;
 						
@@ -908,8 +1027,19 @@ public class CriminalDatabase extends JFrame {
 						
 				case 10: /**Query 10 */
 							 in1=CrimeTypeTextField.getText(); 
+							 /**/
+							 NameTextField.setText("");
+							 CityNameTextField.setText("");
+							 StartTimeTextField.setText("");
+							 AgeTextField.setText("");
+							 CrimeTypeTextField.setText("");
+							 UnderAgeTextField.setText("");
+							 NumCriminalTextField.setText("");
+							 EndTimeTextField.setText("");
+							 /**/
 				             if(!in1.equals(""))
 				             {
+				            	 inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 				                query=new String("select Type_of_Crime,avg(Age) from criminal natural join r1 natural join crime where Type_of_Crime=\""+in1+"\" group by(Type_of_Crime)");
 				                System.out.println("Query="+query);
 				                ArrayList<CrimeAge> dataq10=new ArrayList<CrimeAge>();
@@ -936,6 +1066,10 @@ public class CriminalDatabase extends JFrame {
 				               changeOutputTableSettings();
 				               OutputTableScrollPane.setViewportView(OutputTable);
 				               cardLayout.show(contentPane, "OutputPanel");
+				             }
+				             else{
+				            	 OpenErrorLabel.setText("Empty fields not allowed");
+				            	 inputErrorBoxLayout.show(InputErrorPanel, "OpenErrorPanel");
 				             }
 						break;
 						
@@ -1028,8 +1162,19 @@ public class CriminalDatabase extends JFrame {
 						
 				case 14: /**Query 14 */
 							 in1=CrimeTypeTextField.getText();
+							 /**/
+							 NameTextField.setText("");
+							 CityNameTextField.setText("");
+							 StartTimeTextField.setText("");
+							 AgeTextField.setText("");
+							 CrimeTypeTextField.setText("");
+							 UnderAgeTextField.setText("");
+							 NumCriminalTextField.setText("");
+							 EndTimeTextField.setText("");
+							 /**/
 				             if(!in1.equals(""))
 				             {
+				            	 inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 				                query=new String("select Type_of_Crime,avg(Victim_Age) from crime natural join r2 natural join victim where Type_of_Crime=\""+in1+"\" group by(Type_of_Crime)");
 				                System.out.println("Query="+query);
 				                ArrayList<CrimeAge> dataq14=new ArrayList<CrimeAge>();
@@ -1056,6 +1201,10 @@ public class CriminalDatabase extends JFrame {
 				               changeOutputTableSettings();
 				               OutputTableScrollPane.setViewportView(OutputTable);
 				               cardLayout.show(contentPane, "OutputPanel");	
+				             }
+				             else{
+				            	 OpenErrorLabel.setText("Empty fields not allowed");
+				            	 inputErrorBoxLayout.show(InputErrorPanel, "OpenErrorPanel");
 				             }
 						break;
 				}
