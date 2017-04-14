@@ -79,7 +79,7 @@ public class CriminalDatabase extends JFrame {
 		
 		setBackground(Color.DARK_GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1500, 670);
+		setBounds(100, 100, 1600, 670);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -638,7 +638,7 @@ public class CriminalDatabase extends JFrame {
 						
 				case 2: /**Query 2 */
 
-					 in1=NameTextField.getText();
+					 in1=CityNameTextField.getText();
 		             if(!in1.equals(""))
 		             {
 		                query=new String("select CrimeID,Crime_Time,Crime_Date,Type_of_Crime,Crime_House_Number,Crime_Street_Name,Crime_City_Name from criminal natural join r1 natural join crime where Crime_City_Name=\""+in1+"\"");
@@ -878,7 +878,7 @@ public class CriminalDatabase extends JFrame {
 						break;
 						
 				case 9: /**Query 9 */
-							query=new String("select Arrest_City_Name ,count(*)  from arrested_criminals group by(Arrest_City_Name)");
+							query=new String("select Arrest_City_Name ,count(*) as \"Number\" from arrested_criminals group by (Arrest_City_Name) order by (Number) desc");
 			                System.out.println("Query="+query);
 			                ArrayList<CityCount> dataq9=new ArrayList<CityCount>();
 			                CityCount tempq9;

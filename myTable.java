@@ -40,7 +40,7 @@ public class myTable extends AbstractTableModel{
 		}
 	}
 	}
-	private String[] columnNames = { "Criminal ID", "Name", "Height","Weight", "Age","House NUmber","Street Name","City" };
+	private String[] columnNames = { "Criminal ID", "Name", "Height","Weight", "Age","House Number","Street Name","City" };
 	public int getColumnCount() {
 		return columnNames.length;
 	}
