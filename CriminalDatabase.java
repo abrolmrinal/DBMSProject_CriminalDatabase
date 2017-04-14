@@ -22,11 +22,6 @@ import javax.swing.*;
 public class CriminalDatabase extends JFrame {
 
 	private JPanel contentPane;
-<<<<<<< Updated upstream
-	
-=======
-	private JTable OutputTable;
->>>>>>> Stashed changes
 
 	/**
 	 * List of all available Queries
@@ -610,19 +605,15 @@ public class CriminalDatabase extends JFrame {
 			                {
 			                        System.out.println(exe);
 			                }
-<<<<<<< Updated upstream
 			                OutputTable=new JTable(new myTable(data,data.size()));;
 			                TablePanel.add(OutputTable);
 			                TablePanel.repaint();	
 			                cardLayout.show(contentPane, "OutputPanel");
-=======
-			               OutputTable=new JTable(new myTable(data,data.size()));
->>>>>>> Stashed changes
 			             }
 						break;
 						
 				case 2: /**Query 2 */
-<<<<<<< Updated upstream
+
 					 in1=NameTextField.getText();
 		             if(!in1.equals(""))
 		             {
@@ -650,35 +641,6 @@ public class CriminalDatabase extends JFrame {
 		                }
 		                OutputTable=new JTable(new myTableCrime(data,data.size()));
 		             }
-=======
-							 in1=NameTextField.getText();
-				             if(!in1.equals(""))
-				             {
-				                query=new String("select CrimeID,Crime_Time,Crime_Date,Type_of_Crime,Crime_House_Number,Crime_Street_Name,Crime_City_Name from criminal natural join r1 natural join crime where Crime_City_Name=\""+in1+"\"");
-				                System.out.println("Query="+query);
-				                ArrayList<Crime> data=new ArrayList<Crime>();
-				                Crime temp;
-				                try
-				                {   Class.forName("com.mysql.jdbc.Driver");  
-				                    Connection con=DriverManager.getConnection(  
-				                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
-				                    //here sonoo is database name, root is username and password  
-				                    Statement stmt=con.createStatement();  
-				                    ResultSet rs=stmt.executeQuery(query);  
-				                    while(rs.next())
-				                    {
-				                        temp=new Crime(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)); 
-				                        data.add(temp);
-				                    }
-				                    con.close();  
-				                }
-				                catch(Exception exe)
-				                {
-				                        System.out.println(exe);
-				                }
-				               OutputTable=new JTable(new myTableCrime(data,data.size()));
-				             }
->>>>>>> Stashed changes
 						break;
 						
 				case 3: /**Query 3 */
@@ -708,11 +670,8 @@ public class CriminalDatabase extends JFrame {
 				                {
 				                        System.out.println(exe);
 				                }
-<<<<<<< Updated upstream
 				                OutputTable=new JTable(new myTableCrime(data,data.size()));
-=======
-				               OutputTable=new JTable(new myTableCrime(data,data.size()));
->>>>>>> Stashed changes
+
 				             }
 						break;
 						
@@ -739,11 +698,7 @@ public class CriminalDatabase extends JFrame {
 			                {
 			                        System.out.println(exe);
 			                }
-<<<<<<< Updated upstream
 			                OutputTable=new JTable(new myTable(data,data.size()));
-=======
-			               OutputTable=new JTable(new myTable(data,data.size()));
->>>>>>> Stashed changes
 						break;
 						
 				case 5: /**Query 5 */
@@ -772,11 +727,8 @@ public class CriminalDatabase extends JFrame {
 				                {
 				                        System.out.println(exe);
 				                }
-<<<<<<< Updated upstream
 				                OutputTable=new JTable(new myTable(dataq5,dataq5.size()));
-=======
-				               OutputTable=new JTable(new myTable(dataq5,dataq5.size()));
->>>>>>> Stashed changes
+
 				             }
 						break;
 						
@@ -820,11 +772,7 @@ public class CriminalDatabase extends JFrame {
 				                {
 				                        System.out.println(exe);
 				                }
-<<<<<<< Updated upstream
 				                OutputTable=new JTable(new myTableJail(dataq6,dataq6.size()));
-=======
-				               OutputTable=new JTable(new myTableJail(dataq6,dataq6.size()));
->>>>>>> Stashed changes
 				             }
 						break;
 						
