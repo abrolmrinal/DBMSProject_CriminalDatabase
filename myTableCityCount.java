@@ -34,7 +34,7 @@ public class myTableCityCount extends AbstractTableModel{
 		}
 	}
 	}
-	private String[] columnNames = { "City Name", "Count" };
+	private String[] columnNames = { "Name", "Count" };
 	public int getColumnCount() {
 		return columnNames.length;
 	}
