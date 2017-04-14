@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.border.EmptyBorder;
@@ -23,7 +22,7 @@ import javax.swing.*;
 public class CriminalDatabase extends JFrame {
 
 	private JPanel contentPane;
-	private JTable jTable;
+	
 
 	/**
 	 * List of all available Queries
@@ -53,6 +52,7 @@ public class CriminalDatabase extends JFrame {
 	private JTextField UnderAgeTextField;
 	private JTextField EndTImeTextField;
 	private JTextField NumCriminalTextField;
+	private JTable OutputTable;
 	
 	/**
 	 * Launch the application.
@@ -74,6 +74,7 @@ public class CriminalDatabase extends JFrame {
 	 * Create the frame.
 	 */
 	public CriminalDatabase() {
+		
 		setBackground(Color.DARK_GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1065, 670);
@@ -82,6 +83,8 @@ public class CriminalDatabase extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
+		
+		CardLayout cardLayout = (CardLayout)contentPane.getLayout();
 		
 		JPanel IntroPanel = new JPanel();
 		IntroPanel.setBackground(Color.DARK_GRAY);
@@ -235,6 +238,7 @@ public class CriminalDatabase extends JFrame {
 		NamePanel.add(NameLabel);
 		
 		NameTextField = new JTextField();
+		NameTextField.setFont(new Font("Cantarell", Font.PLAIN, 20));
 		NameTextField.setMinimumSize(new Dimension(700, 100));
 		NameTextField.setBackground(Color.DARK_GRAY);
 		NameTextField.setForeground(Color.WHITE);
@@ -253,6 +257,7 @@ public class CriminalDatabase extends JFrame {
 		CityNamePanel.add(CityNameLabel);
 		
 		CityNameTextField = new JTextField();
+		CityNameTextField.setFont(new Font("Cantarell", Font.PLAIN, 20));
 		CityNameTextField.setMinimumSize(new Dimension(700, 100));
 		CityNameTextField.setForeground(Color.WHITE);
 		CityNameTextField.setColumns(10);
@@ -271,6 +276,7 @@ public class CriminalDatabase extends JFrame {
 		StartTimePanel.add(StartTimeLabel);
 		
 		StartTimeTextField = new JTextField();
+		StartTimeTextField.setFont(new Font("Cantarell", Font.PLAIN, 20));
 		StartTimeTextField.setMinimumSize(new Dimension(700, 100));
 		StartTimeTextField.setForeground(Color.WHITE);
 		StartTimeTextField.setColumns(10);
@@ -311,6 +317,7 @@ public class CriminalDatabase extends JFrame {
 		AgeLabel.setFont(new Font("Cantarell", Font.BOLD, 20));
 		
 		AgeTextField = new JTextField();
+		AgeTextField.setFont(new Font("Cantarell", Font.PLAIN, 20));
 		AgeTextField.setMinimumSize(new Dimension(700, 100));
 		AgeTextField.setForeground(Color.WHITE);
 		AgeTextField.setColumns(10);
@@ -329,6 +336,7 @@ public class CriminalDatabase extends JFrame {
 		CrimeTypePanel.add(CrimTypeLabel);
 		
 		CrimeTypeTextField = new JTextField();
+		CrimeTypeTextField.setFont(new Font("Cantarell", Font.PLAIN, 20));
 		CrimeTypeTextField.setMinimumSize(new Dimension(700, 100));
 		CrimeTypeTextField.setForeground(Color.WHITE);
 		CrimeTypeTextField.setColumns(10);
@@ -347,6 +355,7 @@ public class CriminalDatabase extends JFrame {
 		UnderAgePanel.add(UnderAgeLabel);
 		
 		UnderAgeTextField = new JTextField();
+		UnderAgeTextField.setFont(new Font("Cantarell", Font.PLAIN, 20));
 		UnderAgeTextField.setMinimumSize(new Dimension(700, 100));
 		UnderAgeTextField.setForeground(Color.WHITE);
 		UnderAgeTextField.setColumns(10);
@@ -365,6 +374,7 @@ public class CriminalDatabase extends JFrame {
 		EndTimePanel.add(EndTimeLabel);
 		
 		EndTImeTextField = new JTextField();
+		EndTImeTextField.setFont(new Font("Cantarell", Font.PLAIN, 20));
 		EndTImeTextField.setMinimumSize(new Dimension(700, 100));
 		EndTImeTextField.setForeground(Color.WHITE);
 		EndTImeTextField.setColumns(10);
@@ -383,6 +393,7 @@ public class CriminalDatabase extends JFrame {
 		NumCriminalPanel.add(NumCriminalLabel);
 		
 		NumCriminalTextField = new JTextField();
+		NumCriminalTextField.setFont(new Font("Cantarell", Font.PLAIN, 20));
 		NumCriminalTextField.setMinimumSize(new Dimension(700, 100));
 		NumCriminalTextField.setForeground(Color.WHITE);
 		NumCriminalTextField.setColumns(10);
@@ -392,6 +403,45 @@ public class CriminalDatabase extends JFrame {
 		JPanel NoOptionPanel = new JPanel();
 		NoOptionPanel.setBackground(Color.DARK_GRAY);
 		FormEntry1Panel.add(NoOptionPanel, "NoOptionPanel");
+		
+		JPanel OutputPanel = new JPanel();
+		OutputPanel.setBackground(Color.DARK_GRAY);
+		contentPane.add(OutputPanel, "OutputPanel");
+		OutputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JPanel TablePanel = new JPanel();
+		TablePanel.setPreferredSize(new Dimension(1065, 450));
+		TablePanel.setBackground(Color.DARK_GRAY);
+		OutputPanel.add(TablePanel);
+		TablePanel.setLayout(new BoxLayout(TablePanel, BoxLayout.X_AXIS));
+		
+		OutputTable = new JTable();
+		TablePanel.add(OutputTable);
+		OutputTable.setForeground(Color.WHITE);
+		OutputTable.setFont(new Font("Cantarell", Font.PLAIN, 20));
+		OutputTable.setBackground(Color.DARK_GRAY);
+
+		
+		JPanel BackPanel = new JPanel();
+		BackPanel.setPreferredSize(new Dimension(1065, 200));
+		FlowLayout flowLayout = (FlowLayout) BackPanel.getLayout();
+		flowLayout.setVgap(30);
+		BackPanel.setBackground(Color.DARK_GRAY);
+		OutputPanel.add(BackPanel);
+		
+		JButton BackButton = new JButton("BACK");
+		BackButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cardLayout.show(contentPane, "QueryPanel");
+			}
+		});
+		BackButton.setPreferredSize(new Dimension(300, 100));
+		BackButton.setBackground(Color.DARK_GRAY);
+		BackButton.setForeground(Color.WHITE);
+		BackButton.setFont(new Font("Cantarell", Font.BOLD, 20));
+		BackPanel.add(BackButton);
+		
+		
 		
 		JPanel NoOptionPanel2 = new JPanel();
 		NoOptionPanel2.setBackground(Color.DARK_GRAY);
@@ -541,7 +591,7 @@ public class CriminalDatabase extends JFrame {
 			                try
 			                {   Class.forName("com.mysql.jdbc.Driver");  
 			                    Connection con=DriverManager.getConnection(  
-			                    "jdbc:mysql://localhost:3306/project_dbms_crime","DBMS","pikachu");  
+			                    "jdbc:mysql://localhost:3306/project_dbms_crime","root","M");  
 			                    //here sonoo is database name, root is username and password  
 			                    Statement stmt=con.createStatement();  
 			                    ResultSet rs=stmt.executeQuery(query);  
@@ -556,7 +606,10 @@ public class CriminalDatabase extends JFrame {
 			                {
 			                        System.out.println(exe);
 			                }
-			               jTable=new JTable(new myTable(data,data.size()));
+			                OutputTable=new JTable(new myTable(data,data.size()));;
+			                TablePanel.add(OutputTable);
+			                TablePanel.repaint();	
+			                cardLayout.show(contentPane, "OutputPanel");
 			             }
 						break;
 						
@@ -586,7 +639,7 @@ public class CriminalDatabase extends JFrame {
 		                {
 		                        System.out.println(exe);
 		                }
-		               jTable=new JTable(new myTableCrime(data,data.size()));
+		                OutputTable=new JTable(new myTableCrime(data,data.size()));
 		             }
 						break;
 						
@@ -617,7 +670,7 @@ public class CriminalDatabase extends JFrame {
 				                {
 				                        System.out.println(exe);
 				                }
-				               jTable=new JTable(new myTableCrime(data,data.size()));
+				                OutputTable=new JTable(new myTableCrime(data,data.size()));
 				             }
 						break;
 						
@@ -644,7 +697,7 @@ public class CriminalDatabase extends JFrame {
 			                {
 			                        System.out.println(exe);
 			                }
-			               jTable=new JTable(new myTable(data,data.size()));
+			                OutputTable=new JTable(new myTable(data,data.size()));
 						break;
 						
 				case 5: /**Query 5 */
@@ -673,7 +726,7 @@ public class CriminalDatabase extends JFrame {
 				                {
 				                        System.out.println(exe);
 				                }
-				               jTable=new JTable(new myTable(dataq5,dataq5.size()));
+				                OutputTable=new JTable(new myTable(dataq5,dataq5.size()));
 				             }
 						break;
 						
@@ -717,7 +770,7 @@ public class CriminalDatabase extends JFrame {
 				                {
 				                        System.out.println(exe);
 				                }
-				               jTable=new JTable(new myTableJail(dataq6,dataq6.size()));
+				                OutputTable=new JTable(new myTableJail(dataq6,dataq6.size()));
 				             }
 						break;
 						
@@ -759,7 +812,6 @@ public class CriminalDatabase extends JFrame {
 		JButton StartButton = new JButton("START");
 		StartButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CardLayout cardLayout = (CardLayout)contentPane.getLayout();
 				cardLayout.show(contentPane, "QueryPanel");
 			}
 		});
