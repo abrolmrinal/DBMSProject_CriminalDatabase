@@ -741,9 +741,8 @@ public class CriminalDatabase extends JFrame {
 							 NumCriminalTextField.setText("");
 							 EndTimeTextField.setText("");
 							 /**/
-				             if(!in1.equals("") && !in2.equals(""))
+							 if(!in1.equals("") && !in2.equals(""))
 				             {
-				            	 inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 				                query=new String("select * from crime where Crime_Time > cast(\""+in1.substring(0,2)+":"+in1.substring(2,4)+"\" as time) and Crime_Time < cast(\""+in2.substring(0, 2)+":"+in2.substring(2,4)+"\" as time)");
 				                System.out.println("Query="+query);
 				                ArrayList<Crime> data=new ArrayList<Crime>();
@@ -858,9 +857,16 @@ public class CriminalDatabase extends JFrame {
 						break;
 						
 				case 6: /**Query 6 */
-							 int m=0;
-							 in1=MoreRadioButton.getText();
+							 int m=-1;
+							 if(MoreRadioButton.isEnabled())
+							 {
+								 m=0;
+							 }
 							 in2=NumCriminalTextField.getText();
+							 if(LessRadioButton.isEnabled())
+							 {
+								 m=1;
+							 }
 							 /**/
 							 NameTextField.setText("");
 							 CityNameTextField.setText("");
@@ -871,21 +877,15 @@ public class CriminalDatabase extends JFrame {
 							 NumCriminalTextField.setText("");
 							 EndTimeTextField.setText("");
 							 /**/
-							 if(in1.equals(""))
-							 {
-								 in1=LessRadioButton.getText();
-								 m=1;
-							 }
-				             if(!in1.equals("") && !in2.equals(""))
+				             if(m!=-1 && !in2.equals(""))
 				             {
-				            	 inputErrorBoxLayout.show(InputErrorPanel, "InvPanel");
 				            	if(m==0)
 				            	{
-				            		query=new String("select JailID,Jail_Name,a_count from (select JailID,Jail_Name,count(*) as a_count from arrested_criminals natural join r5 natural join jail group by(Jail_Name) ) as jail_total where jail_total.a_count >"+in1+""); 
+				            		query=new String("select JailID,Jail_Name,a_count from (select JailID,Jail_Name,count(*) as a_count from arrested_criminals natural join r5 natural join jail group by(Jail_Name) ) as jail_total where jail_total.a_count >"+in2+""); 
 				            	}
 				            	else
 				            	{
-				            		query=new String("select JailID,Jail_Name,a_count from (select JailID,Jail_Name,count(*) as a_count from arrested_criminals natural join r5 natural join jail group by(Jail_Name) ) as jail_total where jail_total.a_count <"+in1+"");
+				            		query=new String("select JailID,Jail_Name,a_count from (select JailID,Jail_Name,count(*) as a_count from arrested_criminals natural join r5 natural join jail group by(Jail_Name) ) as jail_total where jail_total.a_count <"+in2+"");
 				            	}
 				                System.out.println("Query="+query);
 				                ArrayList<Jail> dataq6=new ArrayList<Jail>();
@@ -968,33 +968,33 @@ public class CriminalDatabase extends JFrame {
 						break;
 						
 				case 8: /**Query 8 */
-							query=new String("select CriminalID,Criminal_Name,Height,Weight,Age,Criminal_House_Number,Criminal_Street_Name,Criminal_City_Name from criminal where CriminalID not in ( select CriminalID from criminal natural join r3)");
-			                System.out.println("Query="+query);
-			                ArrayList<Criminal> dataq8=new ArrayList<Criminal>();
-			                Criminal tempq8;
-			                try
-			                {   Class.forName("com.mysql.jdbc.Driver");  
-			                    Connection con=DriverManager.getConnection(  
-			                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
-			                    //here sonoo is database name, root is username and password  
-			                    Statement stmt=con.createStatement();  
-			                    ResultSet rs=stmt.executeQuery(query);  
-			                    while(rs.next())
-			                    {
-			                        tempq8=new Criminal(rs.getInt(1),rs.getString(2),rs.getFloat(3),rs.getInt(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
-			                        dataq8.add(tempq8);
-			                    }
-			                    con.close();  
-			                }
-			                catch(Exception exe)
-			                {
-			                        System.out.println(exe);
-			                }
-			               OutputTable=new JTable(new myTable(dataq8,dataq8.size()));
-			               changeOutputTableSettings();
-			               OutputTableScrollPane.setViewportView(OutputTable);
-			               cardLayout.show(contentPane, "OutputPanel");
-						break;
+						query=new String("select CriminalID,Criminal_Name,Height,Weight,Age,Criminal_House_Number,Criminal_Street_Name,Criminal_City_Name from criminal  where CriminalID not in ( select CriminalID from criminal natural join r3)");
+		                System.out.println("Query="+query);
+		                ArrayList<Criminal> dataq8=new ArrayList<Criminal>();
+		                Criminal tempq8;
+		                try
+		                {   Class.forName("com.mysql.jdbc.Driver");  
+		                    Connection con=DriverManager.getConnection(  
+		                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
+		                    //here sonoo is database name, root is username and password  
+		                    Statement stmt=con.createStatement();  
+		                    ResultSet rs=stmt.executeQuery(query);  
+		                    while(rs.next())
+		                    {
+		                        tempq8=new Criminal(rs.getInt(1),rs.getString(2),rs.getFloat(3),rs.getInt(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+		                        dataq8.add(tempq8);
+		                    }
+		                    con.close();  
+		                }
+		                catch(Exception exe)
+		                {
+		                        System.out.println(exe);
+		                }
+		               OutputTable=new JTable(new myTable(dataq8,dataq8.size()));
+		               changeOutputTableSettings();
+		               OutputTableScrollPane.setViewportView(OutputTable);
+		               cardLayout.show(contentPane, "OutputPanel");
+		               break;
 						
 				case 9: /**Query 9 */
 							query=new String("select Arrest_City_Name ,count(*) as \"Number\" from arrested_criminals group by(Arrest_City_Name) order by(Number) desc");
@@ -1100,65 +1100,65 @@ public class CriminalDatabase extends JFrame {
 			               changeOutputTableSettings();
 			               OutputTableScrollPane.setViewportView(OutputTable);
 			               cardLayout.show(contentPane, "OutputPanel");
-						break;
+			               break;
 						
 				case 12: /**Query 12 */
-							query=new String("select Criminal_Name ,count(Crime_City_Name) as \"Number\" from criminal natural join r1 natural join crime group by(CriminalID) order by(Number) desc");
-			                System.out.println("Query="+query);
-			                ArrayList<CityCount> dataq12=new ArrayList<CityCount>();
-			                CityCount tempq12;
-			                try
-			                {   Class.forName("com.mysql.jdbc.Driver");  
-			                    Connection con=DriverManager.getConnection(  
-			                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
-			                    //here sonoo is database name, root is username and password  
-			                    Statement stmt=con.createStatement();  
-			                    ResultSet rs=stmt.executeQuery(query);  
-			                    while(rs.next())
-			                    {
-			                        tempq12=new CityCount(rs.getString(1),rs.getInt(2)); 
-			                        dataq12.add(tempq12);
-			                    }
-			                    con.close();  
-			                }
-			                catch(Exception exe)
-			                {
-			                        System.out.println(exe);
-			                }
-			               OutputTable=new JTable(new myTableCityCount(dataq12,dataq12.size()));
-			               changeOutputTableSettings();
-			               OutputTableScrollPane.setViewportView(OutputTable);
-			               cardLayout.show(contentPane, "OutputPanel");
-						break;
+						query=new String("select Criminal_Name ,count(Crime_City_Name) as \"Number\" from criminal natural join r1 natural join crime group by(CriminalID) order by(Number) desc");
+		                System.out.println("Query="+query);
+		                ArrayList<CityCount> dataq12=new ArrayList<CityCount>();
+		                CityCount tempq12;
+		                try
+		                {   Class.forName("com.mysql.jdbc.Driver");  
+		                    Connection con=DriverManager.getConnection(  
+		                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
+		                    //here sonoo is database name, root is username and password  
+		                    Statement stmt=con.createStatement();  
+		                    ResultSet rs=stmt.executeQuery(query);  
+		                    while(rs.next())
+		                    {
+		                        tempq12=new CityCount(rs.getString(1),rs.getInt(2)); 
+		                        dataq12.add(tempq12);
+		                    }
+		                    con.close();  
+		                }
+		                catch(Exception exe)
+		                {
+		                        System.out.println(exe);
+		                }
+		               OutputTable=new JTable(new myTableCityCount(dataq12,dataq12.size()));
+		               changeOutputTableSettings();
+		               OutputTableScrollPane.setViewportView(OutputTable);
+		               cardLayout.show(contentPane, "OutputPanel");
+		               break;
 						
 				case 13: /**Query 13 */
-							query=new String("select Criminal_Name,count(CrimeID) from criminal natural join r1 where CrimeID not in (select CrimeID from criminal natural join r3) group by(CriminalID) order by (count(CrimeID)) desc");
-			                System.out.println("Query="+query);
-			                ArrayList<CityCount> dataq13=new ArrayList<CityCount>();
-			                CityCount tempq13;
-			                try
-			                {   Class.forName("com.mysql.jdbc.Driver");  
-			                    Connection con=DriverManager.getConnection(  
-			                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
-			                    //here sonoo is database name, root is username and password  
-			                    Statement stmt=con.createStatement();  
-			                    ResultSet rs=stmt.executeQuery(query);  
-			                    while(rs.next())
-			                    {
-			                        tempq13=new CityCount(rs.getString(1),rs.getInt(2)); 
-			                        dataq13.add(tempq13);
-			                    }
-			                    con.close();  
-			                }
-			                catch(Exception exe)
-			                {
-			                        System.out.println(exe);
-			                }
-			               OutputTable=new JTable(new myTableCityCount(dataq13,dataq13.size()));
-			               changeOutputTableSettings();
-			               OutputTableScrollPane.setViewportView(OutputTable);
-			               cardLayout.show(contentPane, "OutputPanel");
-						break;
+						query=new String("select Criminal_Name,count(CrimeID) from criminal natural join r1 where CriminalID not in (select CriminalID from criminal natural join r3) group by(CriminalID) order by (count(CrimeID)) desc");
+		                System.out.println("Query="+query);
+		                ArrayList<CityCount> dataq13=new ArrayList<CityCount>();
+		                CityCount tempq13;
+		                try
+		                {   Class.forName("com.mysql.jdbc.Driver");  
+		                    Connection con=DriverManager.getConnection(  
+		                    "jdbc:mysql://localhost:3306/project_dbms_crime","root", "M");  
+		                    //here sonoo is database name, root is username and password  
+		                    Statement stmt=con.createStatement();  
+		                    ResultSet rs=stmt.executeQuery(query);  
+		                    while(rs.next())
+		                    {
+		                        tempq13=new CityCount(rs.getString(1),rs.getInt(2)); 
+		                        dataq13.add(tempq13);
+		                    }
+		                    con.close();  
+		                }
+		                catch(Exception exe)
+		                {
+		                        System.out.println(exe);
+		                }
+		               OutputTable=new JTable(new myTableCityCount(dataq13,dataq13.size()));
+		               changeOutputTableSettings();
+		               OutputTableScrollPane.setViewportView(OutputTable);
+		               cardLayout.show(contentPane, "OutputPanel");
+					break;
 						
 				case 14: /**Query 14 */
 							 in1=CrimeTypeTextField.getText();
